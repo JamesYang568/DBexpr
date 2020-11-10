@@ -3,7 +3,7 @@ package entity;
 import java.util.Date;
 
 public class Car implements Entity {
-    //注册号码、汽车型号、购入日期、价格、维修日期、运行公里、运行小时、租金率
+    //注册号码、汽车型号、车牌照、购入日期、价格、维修日期、运行公里、运行小时、租金率
     private int id;
     private String type;
     private String license;
@@ -13,14 +13,16 @@ public class Car implements Entity {
     private double mile;
     private double working_time;
     private double rent_rate;
+    private int available;
     private int valid;
 
     public Car() {
+        this.available = 1;
         this.valid = 1;
     }
 
-    public Car(int id, String type, String license, Date purchase_date, double price, Date maintain_date, double mile,
-               double working_time, double rent_rate) {
+    public Car(int id, String type, String license, Date purchase_date, double price, Date maintain_date,
+               double mile, double working_time, double rent_rate) {
         this.id = id;
         this.type = type;
         this.license = license;
@@ -30,6 +32,7 @@ public class Car implements Entity {
         this.mile = mile;
         this.working_time = working_time;
         this.rent_rate = rent_rate;
+        this.available = 1;
         this.valid = 1;
     }
 
@@ -67,6 +70,10 @@ public class Car implements Entity {
 
     public String getLicense() {
         return license;
+    }
+
+    public boolean isAvailable() {
+        return this.available == 1;
     }
 
     public boolean isValid() {

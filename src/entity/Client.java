@@ -1,8 +1,9 @@
 package entity;
 
 public class Client implements Entity {
-    //客户号、客户姓名、客户单位、客户电话、客户地址、邮编
+    //客户号、密码、客户姓名、客户单位、客户电话、客户地址、邮编
     private int id;
+    private String password;
     private String name;
     private String company;
     private String tel;
@@ -14,8 +15,9 @@ public class Client implements Entity {
         this.valid = 1;
     }
 
-    public Client(int id, String name, String company, String tel, String addr, String zipcode) {
+    public Client(int id, String password, String name, String company, String tel, String addr, String zipcode) {
         this.id = id;
+        this.password = password;
         this.name = name;
         this.company = company;
         this.tel = tel;
@@ -26,6 +28,10 @@ public class Client implements Entity {
 
     public int getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getAddr() {

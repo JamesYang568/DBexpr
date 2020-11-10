@@ -3,7 +3,7 @@ package entity;
 import java.util.Date;
 
 public class Transaction {
-    //发票号、日期、牌照号、地点、往返里程、行驶时间、客户号、司机号
+    //发票号、日期、牌照号、地点、往返里程、行驶时间、客户号、司机号、是否正在进行
     private int id;
     private Date date;
     private String license;
@@ -12,9 +12,10 @@ public class Transaction {
     private double times;
     private int client_id;
     private int driver_id;
+    private int valid;
 
     public Transaction() {
-
+        this.valid = 1;
     }
 
     public Transaction(int id, Date date, String license, String local, double miles, double times,
@@ -27,6 +28,7 @@ public class Transaction {
         this.times = times;
         this.client_id = client_id;
         this.driver_id = driver_id;
+        this.valid = 1;
     }
 
     public int getId() {
@@ -59,5 +61,9 @@ public class Transaction {
 
     public String getLocal() {
         return local;
+    }
+
+    public boolean isDoing() { //判断是否正在进行
+        return valid == 1;
     }
 }

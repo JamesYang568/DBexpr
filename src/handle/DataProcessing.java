@@ -7,6 +7,7 @@ import entity.Driver;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DataProcessing {
@@ -24,7 +25,7 @@ public class DataProcessing {
     public static void connectToBD() {
         // connect to database
         String driverName = "com.mysql.jdbc.Driver";           // 加载数据库驱动类
-        String url = "jdbc:mysql://localhost:3306/"
+        String url = "jdbc:mysql://localhost:3306/rentDB"
                 + "?useSSL=FALSE&&serverTimezone=UTC&&useUnicode=true&characterEncoding=utf8";
         // 声明数据库的URL以及格式
         String user = "root";                     // 数据库用户
@@ -53,14 +54,25 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            statement.execute(Create_SQL_sen.sql1);
-            statement.execute(Create_SQL_sen.sql2);
-            statement.execute(Create_SQL_sen.sql3);
-            statement.execute(Create_SQL_sen.sql4);
+            ResultSet rs = connection.getMetaData().getTables("", "", "", null);
+            String[] tables = new String[4];
+            int i = 0;
+            while (rs.next()) {
+                tables[i] = rs.getString("TABLE_NAME");
+                i++;
+            }
+            if (!Arrays.asList(tables).contains("driver_info"))
+                statement.execute(Create_SQL_sen.sql1);
+            if (!Arrays.asList(tables).contains("client_info"))
+                statement.execute(Create_SQL_sen.sql2);
+            if (!Arrays.asList(tables).contains("car_info"))
+                statement.execute(Create_SQL_sen.sql3);
+            if (!Arrays.asList(tables).contains("transaction_info"))
+                statement.execute(Create_SQL_sen.sql4);
 
             statement.close();
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.print("database init出错了");
         }
     }
@@ -83,7 +95,7 @@ public class DataProcessing {
             String sql = "insert into car_info values ("
                     + car.getId() + ",'" + car.getType() + "','" + car.getLicense() + "'," + car.getPurchase_date() +
                     "," + car.getPrice() + "," + car.getMaintain_date() + "," + car.getMile() +
-                    "," + car.getWorking_time() + "," + car.getRent_rate() + "," + 1 + ")";
+                    "," + car.getWorking_time() + "," + car.getRent_rate() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
 //            doc = new Doc(ID, creator, timestamp, description, filename);
@@ -99,8 +111,8 @@ public class DataProcessing {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "insert into client_info values (" + client.getId() + ",'" + client.getName() +
-                    "','" + client.getCompany() + "','" + client.getTel() + "','" + client.getAddr() +
+            String sql = "insert into client_info values (" + client.getId() + ",'" + client.getPassword() + "','"
+                    + client.getName() + "','" + client.getCompany() + "','" + client.getTel() + "','" + client.getAddr() +
                     "','" + client.getZipcode() + "'," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
@@ -120,7 +132,7 @@ public class DataProcessing {
             String sql = "insert into transaction_info values (" + transaction.getId() +
                     "," + transaction.getDate() + ",'" + transaction.getLicense() + "','" + transaction.getLocal()
                     + "'," + transaction.getMiles() + "," + transaction.getTimes() +
-                    "," + transaction.getClient_id() + "," + transaction.getDriver_id() + ")";
+                    "," + transaction.getClient_id() + "," + transaction.getDriver_id() + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
 //            doc = new Doc(ID, creator, timestamp, description, filename);
@@ -137,7 +149,7 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into driver_info values (" + driver.getId() + ",'" + driver.getName()
-                    + "'," + driver.getEnroll_date() + "," + driver.getSalary() + "," + 1 + ")";
+                    + "'," + driver.getEnroll_date() + "," + driver.getSalary() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
 //            doc = new Doc(ID, creator, timestamp, description, filename);
@@ -147,25 +159,15 @@ public class DataProcessing {
     }
 
     /**
-     * 查询  查询的一定是valid为1的对象
-     * flag : true 只查询1个，false查询所有
-     * all :true 全部都查询，false只查询有效的
-     * 在调用之后请判断数组长度
+     * 查询
+     * 请判断返回的长度来确定是查询一个还是查询多个
      */
-    public static Car[] searchCar(int maybe_id, boolean flag, boolean all) throws SQLException {
+    public static Car[] searchCar(String sql) throws SQLException {
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql;
-        ArrayList<Car> arrayList = new ArrayList<Car>();
-        if (flag && all)  // 一个且全部
-            sql = "select * from car_info where id =" + maybe_id;
-        else if (flag)  //一个且有效
-            sql = "select * from car_info where id =" + maybe_id + "and valid=" + 1;
-        else if (all) //全部且全部
-            sql = "select * from car_info ";
-        else //全部且有效
-            sql = "select * from car_info where valid=" + 1;
+
+        ArrayList<Car> arrayList = new ArrayList<>();
 
         ResultSet resultSet = statement.executeQuery(sql);
 
@@ -185,20 +187,13 @@ public class DataProcessing {
         return arrayList.toArray(new Car[0]);
     }
 
-    public static Driver[] searchDriver(int maybe_id, boolean flag, boolean all) throws SQLException {
+    public static Driver[] searchDriver(String sql) throws SQLException {
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql;
-        ArrayList<Driver> arrayList = new ArrayList<Driver>();
-        if (flag && all)
-            sql = "select * from driver_info where id =" + maybe_id;
-        else if (flag)
-            sql = "select * from driver_info where id =" + maybe_id + "and valid=" + 1;
-        else if (all)
-            sql = "select * from driver_info ";
-        else
-            sql = "select * from driver_info where valid=" + 1;
+
+        ArrayList<Driver> arrayList = new ArrayList<>();
+
         ResultSet resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
@@ -212,20 +207,13 @@ public class DataProcessing {
         return arrayList.toArray(new Driver[0]);
     }
 
-    public static Client[] searchClient(int maybe_id, boolean flag, boolean all) throws SQLException {
+    public static Client[] searchClient(String sql) throws SQLException {
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql;
-        ArrayList<Client> arrayList = new ArrayList<Client>();
-        if (flag && all)
-            sql = "select * from client_info where id =" + maybe_id;
-        else if (flag)
-            sql = "select * from client_info where id =" + maybe_id + "and valid=" + 1;
-        else if (all)
-            sql = "select * from client_info ";
-        else
-            sql = "select * from client_info where valid=" + 1;
+
+        ArrayList<Client> arrayList = new ArrayList<>();
+
         ResultSet resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
@@ -235,23 +223,19 @@ public class DataProcessing {
             String tel = resultSet.getString("tel");
             String addr = resultSet.getString("addr");
             String zipcode = resultSet.getString("zipcode");
-            arrayList.add(new Client(id, name, company, tel, addr, zipcode));
+            arrayList.add(new Client(id, "", name, company, tel, addr, zipcode));
         }
 
         return arrayList.toArray(new Client[0]);
     }
 
-    //订单不考虑是否为有效的，因为订单不存在删除的问题
-    public static Transaction[] searchTransaction(int maybe_id, boolean flag) throws SQLException {
+    public static Transaction[] searchTransaction(String sql) throws SQLException {
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql;
-        ArrayList<Transaction> arrayList = new ArrayList<Transaction>();
-        if (flag)
-            sql = "select * from client_info where id =" + maybe_id;
-        else
-            sql = "select * from client_info ";
+
+        ArrayList<Transaction> arrayList = new ArrayList<>();
+
         ResultSet resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
@@ -269,18 +253,31 @@ public class DataProcessing {
         return arrayList.toArray(new Transaction[0]);
     }
 
+    public static boolean searchClient(int userid, String password) throws SQLException {
+        Statement statement;
+        statement = connection.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+        String sql = "select id,password from client_info where id =" + userid + "and valid=" + 1;
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        String pwd = resultSet.getString("password");
+        return password.equals(pwd);
+    }
+
     /**
-     * 修改  即使是删除也是使用update完成的
+     * 修改（即使是删除也是使用update完成的）
+     * 第一部分，修改信息
      */
     public static boolean updateCar(Car car) throws SQLException {  //car 的id不能修改
+        //  汽车的类型、牌照、购买日期、价格不可以修改
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (car.isValid()) {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "update car_info set type='" + car.getType() + "',licese='" + car.getLicense() + "',purchase_date=" + car.getPurchase_date()
-                    + ",price=" + car.getPrice() + ",maintain_date=" + car.getMaintain_date() +
+            String sql = "update car_info set maintain_date=" + car.getMaintain_date() +
                     ",mile=" + car.getMile() + ",working_time =" + car.getWorking_time() + ",rent_rate="
                     + car.getRent_rate() + " where id=" + car.getId(); //todo
             statement.executeUpdate(sql);
@@ -293,14 +290,14 @@ public class DataProcessing {
     }
 
     public static boolean updateDriver(Driver driver) throws SQLException {  //driver 的id不能修改
+        //司机只能修改工资   这里Driver对象只要考虑salary和id是正确的即可
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (driver.isValid()) {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "update driver_info set name='" + driver.getName() + "', enroll_date=" + driver.getEnroll_date()
-                    + ",salary=" + driver.getSalary() + " where id=" + driver.getId();
+            String sql = "update driver_info set salary=" + driver.getSalary() + " where id=" + driver.getId();
             statement.executeUpdate(sql);
             statement.close();
             return true;
@@ -311,6 +308,7 @@ public class DataProcessing {
     }
 
     public static boolean updateClient(Client client) throws SQLException {  //driver 的id不能修改
+        //客户除了密码之外都修改的函数  效率低
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (client.isValid()) {
@@ -329,41 +327,33 @@ public class DataProcessing {
         }
     }
 
-    //delete只能让管理员操作
-    public static boolean deleteCar(int id) throws SQLException {
-        //即使已经是无效信息，再做一次也无妨
+    /**
+     * 修改
+     * 第二部分，修改关键标志
+     * 和外部类Update_SQL_sen直接耦合
+     */
+    public static void update(String sql) throws SQLException {
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         Statement statement;
-        statement = connection.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "update car_info set valid=" + 0 + " where id=" + id; //todo
+        statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         statement.executeUpdate(sql);
         statement.close();
-        return true;
     }
 
-    public static boolean deleteDriver(int id) throws SQLException {
-        //由于用户可见的一定是valid为1的对象，因此这里直接进行更改即可
+
+    /**
+     * 修改
+     * 第三部分，disable删除
+     * 和外部类Delete_SQL_sen直接耦合
+     */
+    //delete只能让管理员操作 必须保证car和driver available是1的情况下才 todo
+    public static boolean delete(String sql) throws SQLException { //即使已经是无效信息，再做一次也无妨
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "update driver_info set valid=" + 0 + " where id=" + id; //todo
-        statement.executeUpdate(sql);
-        statement.close();
-        return true;
-    }
-
-    public static boolean deleteClient(int id) throws SQLException {
-        //由于用户可见的一定是valid为1的对象，因此这里直接进行更改即可
-        if (!connectToDB)
-            throw new SQLException("Not Connected to Database");
-        Statement statement;
-        statement = connection.createStatement(
-                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        String sql = "update client_info set valid=" + 0 + " where id=" + id; //todo
         statement.executeUpdate(sql);
         statement.close();
         return true;
