@@ -347,7 +347,7 @@ public class DataProcessing {
      * 第三部分，disable删除
      * 和外部类Delete_SQL_sen直接耦合
      */
-    //delete只能让管理员操作 必须保证car和driver available是1的情况下才 todo
+    //delete只能让管理员操作 必须保证car和driver available是1的情况下才
     public static boolean delete(String sql) throws SQLException { //即使已经是无效信息，再做一次也无妨
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
