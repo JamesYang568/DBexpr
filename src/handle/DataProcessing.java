@@ -1,10 +1,8 @@
 package handle;
 
-import DialogGUI.ExitDialog;
-import DialogGUI.SQLLinkErr;
+import DialogGUI.Help.*;
 import entity.*;
 import entity.Driver;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +38,7 @@ public class DataProcessing {
             e.printStackTrace();
         } catch (SQLException e) {
             System.out.println("数据库错误");
-            new SQLLinkErr();  //todo
+            new SQLLinkErr();
             e.printStackTrace();
         }
     }
