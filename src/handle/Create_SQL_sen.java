@@ -34,5 +34,5 @@ public class Create_SQL_sen {
             "times double ," +
             "valid int not null," +
             "client_id int foreign key references client(id)," +
-            "driver_id int  foreign key references driver(id))charset=utf8;";
+            "driver_id int foreign key references driver(id))charset=utf8;";
 }

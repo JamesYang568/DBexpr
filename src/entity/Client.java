@@ -1,7 +1,7 @@
 package entity;
 
 public class Client implements Entity {
-    //客户号、密码、客户姓名、客户单位、客户电话、客户地址、邮编
+    //客户号、密码、客户姓名、客户单位、客户电话、客户地址、邮编、是否有效
     private int id;
     private String password;
     private String name;

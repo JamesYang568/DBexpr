@@ -3,7 +3,7 @@ package entity;
 import java.util.Date;
 
 public class Car implements Entity {
-    //注册号码、汽车型号、车牌照、购入日期、价格、维修日期、运行公里、运行小时、租金率
+    //注册号码、汽车型号、车牌照、购入日期、价格、维修日期、运行公里、运行小时、租金率、是否空闲、是否报废
     private int id;
     private String type;
     private String license;

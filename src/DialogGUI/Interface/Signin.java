@@ -1,7 +1,6 @@
 package DialogGUI.Interface;
 
 import handle.DataProcessing;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -101,7 +100,7 @@ public class Signin extends JFrame {
                 new ClientConsole();
                 dispose();
             } else if (flag == 2) {
-                new ServerConsole();
+                ServerConsole.getInstance();
                 dispose();
             } else {
                 wrongL.setVisible(true);
