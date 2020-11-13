@@ -8,8 +8,10 @@ public class ExitDialog extends JDialog implements Runnable{
 	private final JPanel contentPanel = new JPanel();
 
     public ExitDialog() {
+    	setTitle("感谢使用");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setVisible(true);
+        
     }
 
 	/**
@@ -22,7 +24,7 @@ public class ExitDialog extends JDialog implements Runnable{
             getContentPane().add(panel, BorderLayout.CENTER);
             panel.setLayout(null);
 
-            JLabel label = new JLabel("\u611F\u8C22\u60A8\u7684\u4F7F\u7528\uFF01");
+            JLabel label = new JLabel("\u611F\u8C22\u60A8\u7684\u4F7F\u7528\uFF01");  //感谢您的使用
             label.setFont(new Font("宋体", Font.BOLD, 24));
             label.setBounds(132, 102, 200, 36);
             panel.add(label);
