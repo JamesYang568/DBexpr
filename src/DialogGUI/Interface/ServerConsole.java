@@ -3,6 +3,8 @@ package DialogGUI.Interface;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ServerConsole extends JFrame {
     private static ServerConsole instance = null;
@@ -12,6 +14,9 @@ public class ServerConsole extends JFrame {
     private JPanel CTPanel;
     private JPanel DEPanel;
     private JPanel FAPanel;
+
+    private InsertClient insertClient;
+    private ChangeClient changeClient;
 
     /**
      * Create the frame.
@@ -44,7 +49,48 @@ public class ServerConsole extends JFrame {
 
     private JPanel C_A_Client() {
         this.CAPanel = new JPanel();
-        this.CAPanel.setLayout(null);
+        this.CAPanel.setLayout(new BorderLayout(0, 0));
+        JPanel selectPanel = new JPanel();
+        this.CAPanel.add(selectPanel, BorderLayout.NORTH);
+        selectPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+        insertClient = new InsertClient(1);
+        changeClient = new ChangeClient();
+        insertClient.setEnabled(false);
+        insertClient.setVisible(false);
+        changeClient.setEnabled(false);
+        changeClient.setVisible(false);
+        CAPanel.add(insertClient, BorderLayout.CENTER);
+        CAPanel.add(changeClient, BorderLayout.CENTER);
+
+        JButton addclientBnt = new JButton("增加用户");
+        addclientBnt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) { //也可以尝试remove方法
+                insertClient.setVisible(true);
+                insertClient.setEnabled(true);
+                changeClient.setEnabled(false);
+                changeClient.setVisible(false);
+            }
+        });
+        addclientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        selectPanel.add(addclientBnt);
+
+        JLabel blod = new JLabel("           ");
+        blod.setHorizontalAlignment(SwingConstants.CENTER);
+        blod.setFont(new Font("宋体", Font.PLAIN, 24));
+        selectPanel.add(blod);
+
+        JButton chaclientBnt = new JButton("修改用户");
+        chaclientBnt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertClient.setVisible(false);
+                insertClient.setEnabled(false);
+                changeClient.setEnabled(true);
+                changeClient.setVisible(true);
+            }
+        });
+        chaclientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        selectPanel.add(chaclientBnt);
 
         return this.CAPanel;
     }
@@ -56,8 +102,7 @@ public class ServerConsole extends JFrame {
     }
 
     private JPanel Delete() {
-        this.DEPanel = new JPanel();
-        this.DEPanel.setLayout(null);
+        this.DEPanel = new DBADelete();
         return this.DEPanel;
     }
 
