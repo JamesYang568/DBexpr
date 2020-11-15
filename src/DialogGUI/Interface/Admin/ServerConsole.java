@@ -1,4 +1,8 @@
-package DialogGUI.Interface;
+package DialogGUI.Interface.Admin;
+
+import DialogGUI.Interface.ChangeClient;
+import DialogGUI.Interface.InsertClient;
+import DialogGUI.Interface.SelectSpaceitem;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +18,7 @@ public class ServerConsole extends JFrame {
     private JPanel CTPanel;
     private JPanel DEPanel;
     private JPanel FAPanel;
+    private JPanel OtherPanel;  //TODO 包括查询所有信息和增加汽车、司机信息
 
     private InsertClient insertClient;
     private ChangeClient changeClient;
@@ -31,7 +36,7 @@ public class ServerConsole extends JFrame {
     private ServerConsole() {
         setTitle("管理员");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 853, 611);
+        setBounds(100, 100, 670, 772);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -44,6 +49,7 @@ public class ServerConsole extends JFrame {
         tabbedPane.add("查询空闲资源", findAvailable());
         tabbedPane.add("增改用户", C_A_Client());
         tabbedPane.add("删除司机车辆", Delete());
+        tabbedPane.add("其他",otherStaff());
         tabbedPane.setSelectedIndex(0);
     }
 
@@ -72,7 +78,7 @@ public class ServerConsole extends JFrame {
                 changeClient.setVisible(false);
             }
         });
-        addclientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        addclientBnt.setFont(new Font("宋体", Font.PLAIN, 26));
         selectPanel.add(addclientBnt);
 
         JLabel blod = new JLabel("           ");
@@ -89,15 +95,14 @@ public class ServerConsole extends JFrame {
                 changeClient.setVisible(true);
             }
         });
-        chaclientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        chaclientBnt.setFont(new Font("宋体", Font.PLAIN, 26));
         selectPanel.add(chaclientBnt);
 
         return this.CAPanel;
     }
 
     private JPanel CommitTs() {
-        this.CTPanel = new JPanel();
-        this.CTPanel.setLayout(null);
+        this.CTPanel = new transCommit();
         return this.CTPanel;
     }
 
@@ -107,9 +112,12 @@ public class ServerConsole extends JFrame {
     }
 
     private JPanel findAvailable() {
-        this.FAPanel = new JPanel();
-        this.FAPanel.setLayout(null);
+        this.FAPanel = new SelectSpaceitem();
         return this.FAPanel;
     }
-
+    
+    private JPanel otherStaff() {
+    	this.OtherPanel = new OtherStaff();
+    	return this.OtherPanel;
+    }
 }

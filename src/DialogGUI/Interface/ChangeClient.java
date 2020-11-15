@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+ * 在客户自管理和管理员管理界面共用这个panel
+ */
 public class ChangeClient extends JPanel {
     private JTextField tid;
     private JTextField tname;

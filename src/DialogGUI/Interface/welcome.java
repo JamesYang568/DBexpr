@@ -3,6 +3,9 @@ package DialogGUI.Interface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import DialogGUI.Interface.User.Register;
+
 import java.awt.event.*;
 
 public class welcome extends JFrame {

@@ -1,4 +1,4 @@
-package DialogGUI.Interface;
+package DialogGUI.Interface.User;
 
 import java.awt.*;
 import javax.swing.*;

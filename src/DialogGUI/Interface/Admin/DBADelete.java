@@ -1,4 +1,4 @@
-package DialogGUI.Interface;
+package DialogGUI.Interface.Admin;
 
 import entity.*;
 import handle.*;
@@ -50,6 +50,8 @@ public class DBADelete extends JPanel {
         table.setFont(new Font("宋体", Font.PLAIN, 22));
         table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         table.setBounds(15, 104, 454, 413);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        table.setRowHeight(30);
         MP.add(table);
         // MP.add(table.getTableHeader(), BorderLayout.PAGE_START);  //TODO 这里表头
 
@@ -163,18 +165,26 @@ public class DBADelete extends JPanel {
         };
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
-        ));
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
 
     private void setDriverT() {
         data = new String[][]{
                 {"姓名", null},
-                {"车参加工作年月", null},
+                {"参加工作年月", null},
                 {"基本工资", null},
         };
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
-        ));
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
 
     private void setClientT() {
@@ -187,7 +197,11 @@ public class DBADelete extends JPanel {
         };
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
-        ));
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
 
     private void ParseCar(Car car) {

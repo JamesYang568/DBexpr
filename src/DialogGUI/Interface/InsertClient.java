@@ -1,16 +1,16 @@
 package DialogGUI.Interface;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
-
 import javax.swing.*;
-
+import DialogGUI.Interface.User.Register;
 import entity.Client;
 import handle.DataProcessing;
-import handle.Search_SQL_sen;
 
+/**
+ * 在登录注册和管理员注册中共用了这个panel
+ */
 public class InsertClient extends JPanel {
     private JTextField tid;
     private JPasswordField tpassword;

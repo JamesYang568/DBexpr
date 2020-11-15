@@ -1,5 +1,7 @@
 package DialogGUI.Interface;
 
+import DialogGUI.Interface.Admin.ServerConsole;
+import DialogGUI.Interface.User.ClientConsole;
 import handle.DataProcessing;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

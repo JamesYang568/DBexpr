@@ -1,14 +1,11 @@
-package DialogGUI.Interface;
+package DialogGUI.Interface.User;
 
-import entity.Client;
-import handle.DataProcessing;
-import sun.applet.Main;
-
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.*;
-import java.sql.SQLException;
+
+import DialogGUI.Interface.InsertClient;
+
+import java.awt.*;
 
 public class Register extends JFrame {
 
