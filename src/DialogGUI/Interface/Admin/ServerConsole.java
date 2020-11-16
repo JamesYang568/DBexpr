@@ -3,12 +3,12 @@ package DialogGUI.Interface.Admin;
 import DialogGUI.Interface.ChangeClient;
 import DialogGUI.Interface.InsertClient;
 import DialogGUI.Interface.SelectSpaceitem;
+import handle.DataProcessing;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ServerConsole extends JFrame {
     private static ServerConsole instance = null;
@@ -51,6 +51,14 @@ public class ServerConsole extends JFrame {
         tabbedPane.add("删除司机车辆", Delete());
         tabbedPane.add("其他",otherStaff());
         tabbedPane.setSelectedIndex(0);
+        
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){  //TODO 有没有必要，这个要测试
+                System.out.println("Closed");
+                DataProcessing.disconnectFromDB();
+            }
+        });
     }
 
     private JPanel C_A_Client() {
@@ -119,5 +127,9 @@ public class ServerConsole extends JFrame {
     private JPanel otherStaff() {
     	this.OtherPanel = new OtherStaff();
     	return this.OtherPanel;
+    }
+
+    public void finalize(){
+        DataProcessing.disconnectFromDB();
     }
 }

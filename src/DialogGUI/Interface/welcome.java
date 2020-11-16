@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import DialogGUI.Interface.User.Register;
+import handle.DataProcessing;
 
 import java.awt.event.*;
 
@@ -70,5 +71,11 @@ public class welcome extends JFrame {
         registerB.setFont(new Font("宋体", Font.PLAIN, 26));
         registerB.setBounds(236, 178, 145, 52);
         panel.add(registerB);
+    }
+
+    @Override //TODO
+    protected void finalize() throws Throwable {
+        super.finalize();
+        DataProcessing.disconnectFromDB();
     }
 }

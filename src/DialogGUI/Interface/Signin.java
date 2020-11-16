@@ -134,4 +134,10 @@ public class Signin extends JFrame {
         else
             return 3;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        DataProcessing.disconnectFromDB();
+    }
 }

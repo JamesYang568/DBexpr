@@ -40,7 +40,7 @@ public final class Insert_Change_Item extends JFrame {
      */
     public Insert_Change_Item() {
         setTitle("增改资源");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 819, 600);
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
