@@ -13,7 +13,6 @@ public class OtherStaff extends JPanel {
 	 */
 	public OtherStaff() {
 		setLayout(null);
-		
 		JButton SearchBnt = new JButton("查询信息");
 		SearchBnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
