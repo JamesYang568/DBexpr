@@ -31,10 +31,10 @@ public class SearchALL extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
 
-        JLabel title = new JLabel("查询某资源所有信息");
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("宋体", Font.BOLD, 32));
-        contentPane.add(title, BorderLayout.NORTH);
+        JLabel titleL = new JLabel("查询某资源所有信息");
+        titleL.setHorizontalAlignment(SwingConstants.CENTER);
+        titleL.setFont(new Font("宋体", Font.BOLD, 32));
+        contentPane.add(titleL, BorderLayout.NORTH);
 
         JPanel MP = new JPanel();
         contentPane.add(MP, BorderLayout.CENTER);

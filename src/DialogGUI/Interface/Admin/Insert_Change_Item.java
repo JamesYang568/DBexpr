@@ -47,10 +47,10 @@ public final class Insert_Change_Item extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        JLabel title = new JLabel("增改资源");
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("宋体", Font.BOLD, 32));
-        contentPane.add(title, BorderLayout.NORTH);
+        JLabel titleL = new JLabel("增改资源");
+        titleL.setHorizontalAlignment(SwingConstants.CENTER);
+        titleL.setFont(new Font("宋体", Font.BOLD, 32));
+        contentPane.add(titleL, BorderLayout.NORTH);
 
         JPanel MP = new JPanel();
         contentPane.add(MP, BorderLayout.CENTER);
@@ -185,7 +185,7 @@ public final class Insert_Change_Item extends JFrame {
         }
         setVisible(false);
 
-        JButton FBnt = new JButton("查找并删除");
+        JButton FBnt = new JButton("查找");
         FBnt.setFont(new Font("宋体", Font.PLAIN, 20));
         FBnt.setBounds(608, 52, 139, 41);
         MP.add(FBnt);

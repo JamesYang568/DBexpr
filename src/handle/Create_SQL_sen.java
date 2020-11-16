@@ -1,13 +1,13 @@
 package handle;
 
 public class Create_SQL_sen {
-    public static String sql1 = "CREATE TABLE driver_info(id int primary key ," +
+    public static String sql1 = "CREATE TABLE driver_info(id int primary key auto_increment," +
             "name varchar(20) not null," +
             "enroll_date date, " +
             "salary double" +
             "available int not null," +
             "valid int not null) charset=utf8;";
-    public static String sql2 = "CREATE TABLE client_info(" + "id int primary key ," +
+    public static String sql2 = "CREATE TABLE client_info(" + "id int primary key auto_increment ," +
             "password varchar(15)," +
             "name varchar(20) not null," +
             "company varchar(40)," +
@@ -15,7 +15,7 @@ public class Create_SQL_sen {
             "addr varchar(50)," +
             "zipcode varchar(8)," +
             "valid int not null)charset=utf8;";
-    public static String sql3 = "CREATE TABLE car_info(" + "id int primary key ," +
+    public static String sql3 = "CREATE TABLE car_info(" + "id int primary key auto_increment ," +
             "type varchar(10), " +
             "license varchar(10)," +
             "purchase_date date not null, " +
@@ -26,7 +26,7 @@ public class Create_SQL_sen {
             "rent_rate double ," +
             "available int not null," +
             "valid int not null )charset=utf8;";
-    public static String sql4 = "CREATE TABLE transaction_info(" + "id int primary key ," +
+    public static String sql4 = "CREATE TABLE transaction_info(" + "id int primary key auto_increment ," +
             "date date not null," +
             "license varchar(10) not null ," +
             "local varchar(30) " +
