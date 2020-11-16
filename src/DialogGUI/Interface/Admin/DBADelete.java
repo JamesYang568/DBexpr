@@ -4,12 +4,10 @@ import entity.*;
 import handle.*;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
+import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 
 public class DBADelete extends JPanel {
@@ -204,6 +202,9 @@ public class DBADelete extends JPanel {
         });
     }
 
+    /**
+     * 这里对data进行的是内封装，耦合程度比较大，但操作起来更方便，这导致本类是不安全的
+     */
     private void ParseCar(Car car) {
         data[0][1] = car.getType();
         data[1][1] = car.getLicense();

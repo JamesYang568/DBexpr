@@ -1,23 +1,24 @@
 package DialogGUI.Interface;
 
-import entity.Car;
-import entity.Driver;
-import handle.DataProcessing;
-import handle.Search_SQL_sen;
+import handle.ParseEntity;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Vector;
 
 /**
  * 查询空闲资源在管理员和用户共用
+ * <p>
+ * 本类不存在动库操作，因此是安全的
+ * ParseEntity中封装
  */
 public class SelectSpaceitem extends JPanel {
     private JTable table;
+    private ParseEntity parseEntity = new ParseEntity();
 
     public SelectSpaceitem() {
         setLayout(null);
@@ -75,7 +76,7 @@ public class SelectSpaceitem extends JPanel {
 
     private void setCarT() {
         Vector columnNames = new Vector(Arrays.asList("ID号", "车辆型号", "租金率", "购入日期", "维修日期", "运行公里", "运行小时"));
-        DefaultTableModel defaultModel = new DefaultTableModel(this.ParseCar(), columnNames) {
+        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseCar(), columnNames) {
             public boolean isCellEditable(int row, int column) {//表格不允许被编辑
                 return false;
             }
@@ -85,52 +86,12 @@ public class SelectSpaceitem extends JPanel {
 
     private void setDriverT() {
         Vector columnNames = new Vector(Arrays.asList("ID号", "姓名", "参加工作时间"));
-        DefaultTableModel defaultModel = new DefaultTableModel(this.ParseDriver(), columnNames) {
+        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseDriver(), columnNames) {
             public boolean isCellEditable(int row, int column) {//表格不允许被编辑
                 return false;
             }
         };
         table.setModel(defaultModel);
-    }
-
-    private Vector ParseDriver() {
-        Driver[] data = new Driver[0];
-        try {
-            data = DataProcessing.searchDriver(Search_SQL_sen.get_available_driver());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        Vector vector = new Vector();
-        for (Driver driver : data) { //生成一行
-            Vector temp = new Vector();
-            temp.add(driver.getId());
-            temp.add(driver.getName());
-            temp.add(driver.getEnroll_date());
-            vector.add(temp);
-        }
-        return vector;
-    }
-
-    private Vector ParseCar() {
-        Car[] data = new Car[0];
-        try {
-            data = DataProcessing.searchCar(Search_SQL_sen.get_available_car());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        Vector<Object> vector = new Vector();
-        for (Car car : data) { //生成一行
-            Vector temp = new Vector();
-            temp.add(car.getId());
-            temp.add(car.getType());
-            temp.add(car.getRent_rate());
-            temp.add(car.getPurchase_date());
-            temp.add(car.getMaintain_date());
-            temp.add(car.getMile());
-            temp.add(car.getWorking_time());
-            vector.add(temp);
-        }
-        return vector;
     }
 
 }
