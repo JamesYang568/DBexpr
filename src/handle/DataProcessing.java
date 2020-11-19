@@ -3,6 +3,7 @@ package handle;
 import DialogGUI.Help.*;
 import entity.*;
 import entity.Driver;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,11 +53,13 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            ResultSet rs = connection.getMetaData().getTables("", "", "", null);
+            String sql = "show tables;";
+            ResultSet rs = statement.executeQuery(sql);
+//            ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
             String[] tables = new String[4];
             int i = 0;
             while (rs.next()) {
-                tables[i] = rs.getString("TABLE_NAME");
+                tables[i] = rs.getString(1);
                 i++;
             }
             if (!Arrays.asList(tables).contains("driver_info"))
@@ -71,7 +74,7 @@ public class DataProcessing {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.print("database init出错了");
+            System.out.println("database init出错了");
         }
     }
 
@@ -377,4 +380,7 @@ public class DataProcessing {
         }
     }
 
+    public static void main(String[] args) {
+        new DataProcessing();
+    }
 }

@@ -35,8 +35,9 @@ public class Register extends JFrame {
         Title.setFont(new Font("宋体", Font.BOLD, 32));
         contentPane.add(Title, BorderLayout.NORTH);
         JPanel MainP = new InsertClient(0);
-        MainP.getParent().getParent().getParent().getParent().getParent();
+        //MainP.getParent().getParent().getParent().getParent().getParent();
         contentPane.add(MainP, BorderLayout.CENTER);
+        setVisible(true);
     }
 
 }

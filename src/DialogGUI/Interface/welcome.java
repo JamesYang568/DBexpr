@@ -3,11 +3,9 @@ package DialogGUI.Interface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import DialogGUI.Interface.User.Register;
-import handle.DataProcessing;
-
 import java.awt.event.*;
+//所有的窗口都不要忘了加setvisible（true）
 
 public class welcome extends JFrame {
 
@@ -54,8 +52,8 @@ public class welcome extends JFrame {
         JButton signinB = new JButton("登录");
         signinB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 new Signin();
+                dispose();
             }
         });
         signinB.setBounds(236, 98, 145, 52);
@@ -66,16 +64,19 @@ public class welcome extends JFrame {
         registerB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new Register();
+                //最小化
+                setState(JFrame.ICONIFIED);
             }
         });
         registerB.setFont(new Font("宋体", Font.PLAIN, 26));
         registerB.setBounds(236, 178, 145, 52);
         panel.add(registerB);
+        setVisible(true);
     }
 
-    @Override //TODO
-    protected void finalize() throws Throwable {
-        super.finalize();
-        DataProcessing.disconnectFromDB();
-    }
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//        DataProcessing.disconnectFromDB();
+//    }
 }

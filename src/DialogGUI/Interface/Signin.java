@@ -18,18 +18,18 @@ public class Signin extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Signin frame = new Signin();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    Signin frame = new Signin();
+//                    frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     /**
      * Create the frame.
@@ -124,6 +124,8 @@ public class Signin extends JFrame {
         SD.setFont(new Font("宋体", Font.PLAIN, 22));
         SD.setBounds(411, 299, 123, 35);
         contentPane.add(SD);
+
+        setVisible(true);
     }
 
     private int who(int id, String pw) throws SQLException {
@@ -135,9 +137,9 @@ public class Signin extends JFrame {
             return 3;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        DataProcessing.disconnectFromDB();
-    }
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//        DataProcessing.disconnectFromDB();
+//    }
 }

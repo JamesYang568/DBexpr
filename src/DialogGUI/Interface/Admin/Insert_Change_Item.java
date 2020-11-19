@@ -34,6 +34,7 @@ public final class Insert_Change_Item extends JFrame {
     private final JLabel hourL;
 
     private int select = 0;
+    private boolean c_or_i = false;  //修改还是插入，默认为插入
 
     /**
      * Create the frame.
@@ -59,7 +60,6 @@ public final class Insert_Change_Item extends JFrame {
         JComboBox comboBox = new JComboBox();
         comboBox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent arg0) {
-                setEditable(true);  //全部初始化
                 if (arg0.getStateChange() == ItemEvent.SELECTED)
                     select = comboBox.getSelectedIndex();
                 if (select == 1) {
@@ -201,6 +201,8 @@ public final class Insert_Change_Item extends JFrame {
                             String name = nameT.getText();
                             String date = dateT.getText();
                             double salary = Double.parseDouble(salaryT.getText());
+                            if (c_or_i)
+                                DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
                             DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
                         } else {
                             int id = Integer.parseInt(ids);
@@ -212,6 +214,9 @@ public final class Insert_Change_Item extends JFrame {
                             double mile = Double.parseDouble(mileT.getText());
                             double hour = Double.parseDouble(hourT.getText());
                             String maintain = maintainT.getText();
+                            if(c_or_i)
+                                DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date),
+                                        price, Date.valueOf(maintain), mile, hour, rate));
                             DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
                                     price, Date.valueOf(maintain), mile, hour, rate));
                         }
@@ -229,12 +234,12 @@ public final class Insert_Change_Item extends JFrame {
         CommitBnt.setBounds(323, 441, 139, 41);
         MP.add(CommitBnt);
 
-
-        FBnt.addActionListener(new ActionListener() {
+        FBnt.addActionListener(new ActionListener() {//说明要修改
             public void actionPerformed(ActionEvent e) {
                 String ids = idT.getText();
-                setEditable(false);
                 if (!ids.equals("")) {
+                    idT.setEditable(false);
+                    c_or_i = true;
                     try {
                         int id = Integer.parseInt(ids);
                         if (select == 0) {
@@ -276,7 +281,9 @@ public final class Insert_Change_Item extends JFrame {
         hourT.setVisible(flag);
     }
 
+    @Deprecated
     public void setEditable(boolean flag) {
+        idT.setEditable(flag);
         priceT.setEditable(flag);
         nameT.setEditable(flag);
         dateT.setEditable(flag);
