@@ -16,22 +16,6 @@ public class Signin extends JFrame {
     private JPasswordField PWF;
 
     /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    Signin frame = new Signin();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-    /**
      * Create the frame.
      */
     public Signin() {
@@ -137,9 +121,4 @@ public class Signin extends JFrame {
             return 3;
     }
 
-//    @Override
-//    protected void finalize() throws Throwable {
-//        super.finalize();
-//        DataProcessing.disconnectFromDB();
-//    }
 }

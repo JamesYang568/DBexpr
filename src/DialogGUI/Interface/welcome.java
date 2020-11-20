@@ -3,7 +3,10 @@ package DialogGUI.Interface;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import DialogGUI.Interface.User.Register;
+import handle.DataProcessing;
+
 import java.awt.event.*;
 //所有的窗口都不要忘了加setvisible（true）
 
@@ -63,9 +66,10 @@ public class welcome extends JFrame {
         JButton registerB = new JButton("注册");
         registerB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new Register();
+                new Register(get_welcome());
                 //最小化
                 setState(JFrame.ICONIFIED);
+
             }
         });
         registerB.setFont(new Font("宋体", Font.PLAIN, 26));
@@ -74,9 +78,13 @@ public class welcome extends JFrame {
         setVisible(true);
     }
 
-//    @Override
-//    protected void finalize() throws Throwable {
-//        super.finalize();
-//        DataProcessing.disconnectFromDB();
-//    }
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        DataProcessing.disconnectFromDB();
+    }
+
+    private JFrame get_welcome() {
+        return this;
+    }
 }

@@ -8,7 +8,7 @@ public class Driver implements Entity {
     private String name;
     private Date enroll_date;
     private double salary;
-    private double available;
+    private int available;
     private int valid;
 
     public Driver() {

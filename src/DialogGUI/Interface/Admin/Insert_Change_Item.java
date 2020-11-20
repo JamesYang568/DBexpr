@@ -66,7 +66,7 @@ public final class Insert_Change_Item extends JFrame {
                     nameL.setText("车辆类型");
                     dateL.setText("购入日期");
                     salaryL.setText("租金率");
-                    setVisible(true);
+                    setComp_visible(true);
                 }
             }
         });
@@ -183,7 +183,7 @@ public final class Insert_Change_Item extends JFrame {
             hourT.setBounds(554, 369, 139, 41);
             MP.add(hourT);
         }
-        setVisible(false);
+        setComp_visible(false);
 
         JButton FBnt = new JButton("查找");
         FBnt.setFont(new Font("宋体", Font.PLAIN, 20));
@@ -227,6 +227,7 @@ public final class Insert_Change_Item extends JFrame {
                         JOptionPane.showMessageDialog(null, "日期格式错误！",
                                 "出错了", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    reset();
                 }
             }
         });
@@ -248,7 +249,7 @@ public final class Insert_Change_Item extends JFrame {
                             dateT.setText(driver.getEnroll_date().toString());
                             salaryT.setText(Double.toString(driver.getSalary()));
                         } else {
-                            setVisible(true);
+                            setComp_visible(true);
                             Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];
                             nameT.setText(car.getType());
                             dateT.setText(car.getPurchase_date().toString());
@@ -265,10 +266,23 @@ public final class Insert_Change_Item extends JFrame {
                 }
             }
         });
+
+        setVisible(true);
     }
 
-    @Override
-    public void setVisible(boolean flag) {
+    private void reset() {
+        this.idT.setText("");
+        this.priceT.setText("");
+        this.hourT.setText("");
+        this.maintainT.setText("");
+        this.mileT.setText("");
+        this.licenseT.setText("");
+        this.maintainT.setText("");
+        this.nameT.setText("");
+        this.dateT.setText("");
+    }
+
+    public void setComp_visible(boolean flag) {
         priceL.setVisible(flag);
         priceT.setVisible(flag);
         licenseL.setVisible(flag);
@@ -305,4 +319,5 @@ public final class Insert_Change_Item extends JFrame {
         return rlt;
     }
 
+    //  汽车的类型、牌照、购买日期、价格不可以修改
 }

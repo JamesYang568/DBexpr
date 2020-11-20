@@ -10,6 +10,8 @@ import handle.DataProcessing;
 
 /**
  * 在登录注册和管理员注册中共用了这个panel
+ * flag =1为用户自己的注册
+ * flag =0为管理员的顾客插入
  */
 public class InsertClient extends JPanel {
     private JTextField tid;
@@ -126,16 +128,17 @@ public class InsertClient extends JPanel {
                 Client client = new Client(id, password, name, company, tel, addr, zipcode);
                 try {
                     if (!DataProcessing.insertClient(client) && flag == 1)
-                        title.setText("插入失败，请重新尝试");
+                        JOptionPane.showMessageDialog(null, "插入失败，请重新尝试", "出错了", JOptionPane.ERROR_MESSAGE);
                     else if (flag == 0) {
                         Register register = (Register) getTopLevelAncestor(); //返回父类容器
+                        register.Window_extended();
                         register.dispose();
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-                JOptionPane.showMessageDialog(null, "成功保存", "提示", JOptionPane.INFORMATION_MESSAGE);
                 reset();
+                JOptionPane.showMessageDialog(null, "成功保存", "提示", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         SubBnt.setFont(new Font("宋体", Font.PLAIN, 22));

@@ -18,10 +18,12 @@ public class Register extends JFrame {
     private JTextField t6;
     private JTextField t7;
 
+    private JFrame welcome;
     /**
      * Create the frame.
      */
-    public Register() {
+    public Register(JFrame welcome) {
+        this.welcome = welcome;
         setTitle("注册客户");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 669, 690);
@@ -40,4 +42,7 @@ public class Register extends JFrame {
         setVisible(true);
     }
 
+    public void Window_extended(){
+        this.welcome.setExtendedState(JFrame.NORMAL);
+    }
 }

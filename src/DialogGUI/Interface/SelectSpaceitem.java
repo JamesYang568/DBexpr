@@ -1,14 +1,12 @@
 package DialogGUI.Interface;
 
-import handle.ParseEntity;
+import DialogGUI.Help.TableParse;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
-import java.util.Vector;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 查询空闲资源在管理员和用户共用
@@ -18,7 +16,6 @@ import java.util.Vector;
  */
 public class SelectSpaceitem extends JPanel {
     private JTable table;
-    private ParseEntity parseEntity = new ParseEntity();
 
     public SelectSpaceitem() {
         setLayout(null);
@@ -44,7 +41,7 @@ public class SelectSpaceitem extends JPanel {
         JButton DriverBnt = new JButton("司机");
         DriverBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                setDriverT();
+                TableParse.setDriverT(table);
             }
         });
         DriverBnt.setBounds(32, 377, 85, 59);
@@ -54,7 +51,7 @@ public class SelectSpaceitem extends JPanel {
         JButton CarBnt = new JButton("汽车");
         CarBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setCarT();
+                TableParse.setCarT(table);
             }
         });
         CarBnt.setBounds(32, 88, 85, 53);
@@ -66,6 +63,7 @@ public class SelectSpaceitem extends JPanel {
         table.setBounds(173, 99, 423, 445);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setRowHeight(30);
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setSize(490, 580);
         scrollPane.setLocation(137, 82);
@@ -73,25 +71,4 @@ public class SelectSpaceitem extends JPanel {
         add(scrollPane);
 
     }
-
-    private void setCarT() {
-        Vector columnNames = new Vector(Arrays.asList("ID号", "车辆型号", "租金率", "购入日期", "维修日期", "运行公里", "运行小时"));
-        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseCar(), columnNames) {
-            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
-                return false;
-            }
-        };
-        table.setModel(defaultModel);
-    }
-
-    private void setDriverT() {
-        Vector columnNames = new Vector(Arrays.asList("ID号", "姓名", "参加工作时间"));
-        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseDriver(), columnNames) {
-            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
-                return false;
-            }
-        };
-        table.setModel(defaultModel);
-    }
-
 }

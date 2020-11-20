@@ -50,7 +50,7 @@ available 代表当前汽车或者司机是否空闲 1为空闲，0为不空闲
 
 客户的租赁业务和查询需要放在一个里面，而管理员的租赁是从用户的那边获取的，因此需要传到管理员这里
 
-OtherPanel部分放到最后在增加，主要是插入汽车、司机信息、查找所有信息
+用户可以注销自己
 
      public static Entity search_entity(String cls, int id) {
          String entity_name;

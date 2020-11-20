@@ -2,7 +2,10 @@ package handle;
 
 import entity.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class ParseEntity {
@@ -65,5 +68,18 @@ public class ParseEntity {
             vector.add(temp);
         }
         return vector;
+    }
+
+    public static Date ParseDate2D(java.util.Date date) {
+        return new Date(date.getTime());
+    }
+
+    public static java.util.Date ParseDate2D(Date date) {
+        return new java.util.Date(date.getTime());
+    }
+
+    public static String ParseDate2S(java.util.Date date) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return new String("'" + format.format(date) + "'");
     }
 }

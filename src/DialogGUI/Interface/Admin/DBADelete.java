@@ -70,14 +70,17 @@ public class DBADelete extends JPanel {
         DeleteBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    boolean tag;
                     if (flag == 1) {
-                        DataProcessing.delete(Delete_SQL_sen.delete_car(id));
+                        tag = DataProcessing.delete(Delete_SQL_sen.delete_car(id));
                     } else if (flag == 2)
-                        DataProcessing.delete(Delete_SQL_sen.delete_driver(id));
+                        tag = DataProcessing.delete(Delete_SQL_sen.delete_driver(id));
                     else
-                        DataProcessing.delete(Delete_SQL_sen.delete_client(id));
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                        tag = DataProcessing.delete(Delete_SQL_sen.delete_client(id));
+                    if (!tag)
+                        JOptionPane.showMessageDialog(null,"正在使用中","出错了",JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException throwable) {
+                    throwable.printStackTrace();
                 }
             }
         });

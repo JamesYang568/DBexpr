@@ -59,6 +59,7 @@ public class ServerConsole extends JFrame {
                 DataProcessing.disconnectFromDB();
             }
         });
+        setVisible(true);
     }
 
     private JPanel C_A_Client() {

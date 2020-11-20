@@ -93,14 +93,12 @@ public class DataProcessing {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "insert into car_info values ("
-                    + car.getId() + ",'" + car.getType() + "','" + car.getLicense() + "'," + car.getPurchase_date() +
+            String sql = "insert into car_info values (" + car.getId() + ",'" + car.getType() +
+                    "','" + car.getLicense() + "'," + ParseEntity.ParseDate2S(car.getPurchase_date()) +
                     "," + car.getPrice() + "," + car.getMaintain_date() + "," + car.getMile() +
                     "," + car.getWorking_time() + "," + car.getRent_rate() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
-//            doc = new Doc(ID, creator, timestamp, description, filename);
-//            docs.put(ID, doc);
             return true;
         }
     }
@@ -117,8 +115,6 @@ public class DataProcessing {
                     "','" + client.getZipcode() + "'," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
-//            doc = new Doc(ID, creator, timestamp, description, filename);
-//            docs.put(ID, doc);
             return true;
         }
     }
@@ -131,13 +127,11 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into transaction_info values (" + transaction.getId() +
-                    "," + transaction.getDate() + ",'" + transaction.getLicense() + "','" + transaction.getLocal()
-                    + "'," + transaction.getMiles() + "," + transaction.getTimes() +
+                    "," + ParseEntity.ParseDate2S(transaction.getDate()) + ",'" + transaction.getLicense() + "','"
+                    + transaction.getLocal() + "'," + transaction.getMiles() + "," + transaction.getTimes() +
                     "," + transaction.getClient_id() + "," + transaction.getDriver_id() + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
-//            doc = new Doc(ID, creator, timestamp, description, filename);
-//            docs.put(ID, doc);
             return true;
         }
     }
@@ -150,11 +144,9 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into driver_info values (" + driver.getId() + ",'" + driver.getName()
-                    + "'," + driver.getEnroll_date() + "," + driver.getSalary() + "," + 1 + "," + 1 + ")";
+                    + "'," + ParseEntity.ParseDate2S(driver.getEnroll_date()) + "," + driver.getSalary() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
-//            doc = new Doc(ID, creator, timestamp, description, filename);
-//            docs.put(ID, doc);
             return true;
         }
     }
@@ -176,9 +168,9 @@ public class DataProcessing {
             int id = resultSet.getInt("id");
             String type = resultSet.getString("type");
             String license = resultSet.getString("license");
-            Date purchase_date = resultSet.getDate("purchase_date");
+            Date purchase_date = ParseEntity.ParseDate2D(resultSet.getDate("purchase_date")); //转换格式
             double price = resultSet.getDouble("price");
-            Date maintain_date = resultSet.getDate("maintain_date");
+            Date maintain_date = ParseEntity.ParseDate2D(resultSet.getDate("maintain_date"));
             double mile = resultSet.getDouble("mile");
             double working_time = resultSet.getDouble("working_time");
             double rent_rate = resultSet.getDouble("rent_rate");
@@ -200,7 +192,7 @@ public class DataProcessing {
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
-            Date enroll_date = resultSet.getDate("enroll_date");
+            Date enroll_date = ParseEntity.ParseDate2D(resultSet.getDate("enroll_date"));
             double salary = resultSet.getDouble("salary");
             arrayList.add(new Driver(id, name, enroll_date, salary));
         }
@@ -241,7 +233,7 @@ public class DataProcessing {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            Date date = resultSet.getDate("date");
+            Date date = ParseEntity.ParseDate2D(resultSet.getDate("date"));
             String license = resultSet.getString("license");
             String local = resultSet.getString("local");
             double miles = resultSet.getDouble("miles");
@@ -259,10 +251,12 @@ public class DataProcessing {
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-        String sql = "select id,password from client_info where id =" + userid + "and valid=" + 1;
+        String sql = "select id,password from client_info where id =" + userid + " and valid=1;";
         ResultSet resultSet = statement.executeQuery(sql);
-
-        String pwd = resultSet.getString("password");
+        String pwd = "";
+        while (resultSet.next()) {
+            pwd = resultSet.getString("password");
+        }
         return password.equals(pwd);
     }
 
@@ -270,17 +264,16 @@ public class DataProcessing {
      * 修改（即使是删除也是使用update完成的）
      * 第一部分，修改信息
      */
-    public static boolean updateCar(Car car) throws SQLException {  //car 的id不能修改
-        //  汽车的类型、牌照、购买日期、价格不可以修改
+    public static boolean updateCar(Car car) throws SQLException {  //car 的id不能修改 汽车的类型、牌照、购买日期、价格不可以修改
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (car.isValid()) {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "update car_info set maintain_date=" + car.getMaintain_date() +
+            String sql = "update car_info set maintain_date=" + ParseEntity.ParseDate2S(car.getMaintain_date()) +
                     ",mile=" + car.getMile() + ",working_time =" + car.getWorking_time() + ",rent_rate="
-                    + car.getRent_rate() + " where id=" + car.getId(); //todo
+                    + car.getRent_rate() + " where id=" + car.getId() + " and valid=1;"; //todo
             statement.executeUpdate(sql);
             statement.close();
             return true;
@@ -290,15 +283,14 @@ public class DataProcessing {
         }
     }
 
-    public static boolean updateDriver(Driver driver) throws SQLException {  //driver 的id不能修改
-        //司机只能修改工资   这里Driver对象只要考虑salary和id是正确的即可
+    public static boolean updateDriver(Driver driver) throws SQLException {    //司机只能修改工资   这里Driver对象只要考虑salary和id是正确的即可
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (driver.isValid()) {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "update driver_info set salary=" + driver.getSalary() + " where id=" + driver.getId();
+            String sql = "update driver_info set salary=" + driver.getSalary() + " where id=" + driver.getId() + " and valid=1;";
             statement.executeUpdate(sql);
             statement.close();
             return true;
@@ -308,8 +300,7 @@ public class DataProcessing {
         }
     }
 
-    public static boolean updateClient(Client client) throws SQLException {  //driver 的id不能修改
-        //客户除了密码之外都修改的函数  效率低
+    public static boolean updateClient(Client client) throws SQLException {  //id不能修改 客户除了密码之外都修改的函数  效率低
         if (!connectToDB)
             throw new SQLException("Not Connected to Database");
         if (client.isValid()) {
@@ -318,7 +309,7 @@ public class DataProcessing {
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "update client_info set name='" + client.getName() + "', company='" + client.getCompany()
                     + "',tel='" + client.getTel() + "',addr='" + client.getAddr() + "',zipcode='" + client.getZipcode()
-                    + "' where id=" + client.getId();
+                    + "' where id=" + client.getId() + " and valid=1;";
             statement.executeUpdate(sql);
             statement.close();
             return true;
@@ -355,18 +346,19 @@ public class DataProcessing {
         Statement statement;
         statement = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        statement.executeUpdate(sql);
+        boolean flag = statement.execute(sql);
         statement.close();
-        return true;
+        return flag;
     }
 
     public static void disconnectFromDB() { //当关闭窗口时调用  因为没有更多的操作了，所以不再上抛异常
-        if (connectToDB) {
+        if (!connectToDB) {
             try {
                 Thread ed = new Thread(new ExitDialog());  //todo 做一下提示
                 //ThreadGroup tg = new ThreadGroup();
                 //ed.sleep(1000);
                 connection.close();
+                System.out.println("数据库关闭");
 
             } catch (SQLException e) {
                 //e.printStackTrace();

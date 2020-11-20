@@ -1,23 +1,20 @@
 package DialogGUI.Interface.Admin;
 
-import handle.ParseEntity;
+import DialogGUI.Help.TableParse;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 这个类不存在数据库操作，因此是完全安全的
  * 动库操作在ParseEntity中封装
  */
 public class SearchALL extends JFrame {
-
     private JPanel contentPane;
     private JTable table;
-    private ParseEntity parseEntity = new ParseEntity();
 
     /**
      * Create the frame.
@@ -43,7 +40,7 @@ public class SearchALL extends JFrame {
         JButton CarBnt = new JButton("汽车");
         CarBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setCarT();
+                TableParse.setCarT(table);
             }
         });
         CarBnt.setFont(new Font("宋体", Font.PLAIN, 24));
@@ -53,7 +50,7 @@ public class SearchALL extends JFrame {
         JButton DriverBnt = new JButton("司机");
         DriverBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setDriverT();
+                TableParse.setDriverT(table);
             }
         });
         DriverBnt.setFont(new Font("宋体", Font.PLAIN, 24));
@@ -63,7 +60,7 @@ public class SearchALL extends JFrame {
         JButton ClientBnt = new JButton("顾客");
         ClientBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setClientT();
+                TableParse.setClientT(table);
             }
         });
         ClientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
@@ -75,42 +72,13 @@ public class SearchALL extends JFrame {
         table.setBounds(36, 110, 904, 470);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setRowHeight(30);
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setSize(951, 501);
         scrollPane.setLocation(15, 95);
-        MP.add(table);
-
+        scrollPane.setViewportView(table);
         MP.add(scrollPane);
-    }
-
-    private void setCarT() {
-        Vector columnNames = new Vector(Arrays.asList("ID号", "车辆型号", "租金率", "购入日期", "维修日期", "运行公里", "运行小时"));
-        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseCar(), columnNames) {
-            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
-                return false;
-            }
-        };
-        table.setModel(defaultModel);
-    }
-
-    private void setDriverT() {
-        Vector columnNames = new Vector(Arrays.asList("ID号", "姓名", "参加工作时间"));
-        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseDriver(), columnNames) {
-            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
-                return false;
-            }
-        };
-        table.setModel(defaultModel);
-    }
-
-    private void setClientT() {
-        Vector columnNames = new Vector(Arrays.asList("ID号", "姓名", "单位", "电话", "地址", "邮编"));
-        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseClient(), columnNames) {
-            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
-                return false;
-            }
-        };
-        table.setModel(defaultModel);
+        setVisible(true);
     }
 
 }
