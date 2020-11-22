@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * 查询空闲资源在管理员和用户共用
+ * 查询空闲资源查询管理员和用户共用这个界面，todo 需要增加一个选中的功能
  * <p>
  * 本类不存在动库操作，因此是安全的
  * ParseEntity中封装
@@ -69,6 +69,5 @@ public class SelectSpaceitem extends JPanel {
         scrollPane.setLocation(137, 82);
         scrollPane.setViewportView(table);
         add(scrollPane);
-
     }
 }

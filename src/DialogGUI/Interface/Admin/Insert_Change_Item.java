@@ -1,8 +1,10 @@
 package DialogGUI.Interface.Admin;
 
+import DialogGUI.Help.InputParse;
 import entity.Car;
 import entity.Driver;
 import handle.DataProcessing;
+import handle.ParseEntity;
 import handle.Search_SQL_sen;
 
 import javax.swing.*;
@@ -193,13 +195,13 @@ public final class Insert_Change_Item extends JFrame {
         JButton CommitBnt = new JButton("确定");
         CommitBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String ids = idT.getText();
+                String ids = InputParse.parseID(idT.getText());
                 if (!ids.equals("")) {
                     try {
                         if (select == 0) {
                             int id = Integer.parseInt(ids);
                             String name = nameT.getText();
-                            String date = dateT.getText();
+                            String date = InputParse.parseDate(dateT.getText());
                             double salary = Double.parseDouble(salaryT.getText());
                             if (c_or_i)
                                 DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
@@ -207,17 +209,18 @@ public final class Insert_Change_Item extends JFrame {
                         } else {
                             int id = Integer.parseInt(ids);
                             String type = nameT.getText();
-                            String date = dateT.getText();
+                            String date = InputParse.parseDate(dateT.getText());
                             double price = Double.parseDouble(priceT.getText());
                             double rate = Double.parseDouble(salaryT.getText());
-                            String license = licenseT.getText();
+                            String license = licenseT.getText().trim();
                             double mile = Double.parseDouble(mileT.getText());
                             double hour = Double.parseDouble(hourT.getText());
-                            String maintain = maintainT.getText();
-                            if(c_or_i)
+                            String maintain = InputParse.parseDate(maintainT.getText());
+                            if (c_or_i)
                                 DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date),
                                         price, Date.valueOf(maintain), mile, hour, rate));
-                            DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
+                            else
+                                DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
                                     price, Date.valueOf(maintain), mile, hour, rate));
                         }
                     } catch (SQLException ep) {
@@ -237,7 +240,7 @@ public final class Insert_Change_Item extends JFrame {
 
         FBnt.addActionListener(new ActionListener() {//说明要修改
             public void actionPerformed(ActionEvent e) {
-                String ids = idT.getText();
+                String ids = InputParse.parseID(idT.getText());
                 if (!ids.equals("")) {
                     idT.setEditable(false);
                     c_or_i = true;
@@ -252,9 +255,9 @@ public final class Insert_Change_Item extends JFrame {
                             setComp_visible(true);
                             Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];
                             nameT.setText(car.getType());
-                            dateT.setText(car.getPurchase_date().toString());
+                            dateT.setText(ParseEntity.ParseDate2S(car.getPurchase_date()));
                             salaryT.setText(Double.toString(car.getRent_rate()));
-                            maintainT.setText(car.getMaintain_date().toString());
+                            maintainT.setText(ParseEntity.ParseDate2S(car.getMaintain_date()));
                             licenseT.setText(car.getLicense());
                             priceT.setText(Double.toString(car.getPrice()));
                             mileT.setText(Double.toString(car.getMile()));
@@ -319,5 +322,5 @@ public final class Insert_Change_Item extends JFrame {
         return rlt;
     }
 
-    //  汽车的类型、牌照、购买日期、价格不可以修改
+    //  汽车的类型、牌照、购买日期、价格不可以修改 todo
 }

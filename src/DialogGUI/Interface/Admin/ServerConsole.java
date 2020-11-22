@@ -14,13 +14,13 @@ public class ServerConsole extends JFrame {
     private static ServerConsole instance = null;
 
     private JPanel contentPane;
-    private JPanel CAPanel;
-    private JPanel CTPanel;
-    private JPanel DEPanel;
-    private JPanel FAPanel;
-    private JPanel OtherPanel;  //TODO 包括查询所有信息和增加汽车、司机信息
+    private JPanel CAPanel;  //增改用户
+    private JPanel CTPanel;  //租赁业务处理，需要进行进程通信
+    private JPanel DEPanel;  //删除三个实体
+    private JPanel FAPanel;  //查询空闲资源
+    private JPanel OtherPanel;  //包括查询所有信息和增加汽车、司机信息
 
-    private InsertClient insertClient;
+    private InsertClient insertClient;  // TODO: 2020/11/22 应该将判断标记内聚在panel中
     private ChangeClient changeClient;
 
     /**

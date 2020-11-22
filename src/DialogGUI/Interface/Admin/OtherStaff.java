@@ -1,10 +1,8 @@
 package DialogGUI.Interface.Admin;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 public class OtherStaff extends JPanel {
 
@@ -17,7 +15,7 @@ public class OtherStaff extends JPanel {
 		SearchBnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new SearchALL();
-				//TODO
+				//TODO 最小化，最大化
 			}
 		});
 		SearchBnt.setFont(new Font("宋体", Font.PLAIN, 28));
@@ -28,7 +26,7 @@ public class OtherStaff extends JPanel {
 		Insert_ChangeBnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Insert_Change_Item();
-				//TODO
+				//TODO 最小化，最大化
 			}
 		});
 		Insert_ChangeBnt.setFont(new Font("宋体", Font.PLAIN, 28));

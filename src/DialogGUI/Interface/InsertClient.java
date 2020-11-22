@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import javax.swing.*;
+
+import DialogGUI.Help.InputParse;
 import DialogGUI.Interface.User.Register;
 import entity.Client;
 import handle.DataProcessing;
@@ -118,7 +120,7 @@ public class InsertClient extends JPanel {
         JButton SubBnt = new JButton("提交");
         SubBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(tid.getText());
+                int id = Integer.parseInt(InputParse.parseID(tid.getText()));
                 String password = new String(tpassword.getPassword());
                 String name = tname.getText();
                 String company = tcompany.getText();

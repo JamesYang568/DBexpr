@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * 这个类不存在数据库操作，因此是完全安全的
  * 动库操作在ParseEntity中封装
+ * 对表的操作封装在TableParse中
  */
 public class SearchALL extends JFrame {
     private JPanel contentPane;

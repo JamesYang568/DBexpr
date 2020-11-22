@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+//删除车辆、司机或者顾客信息
 public class DBADelete extends JPanel {
     private JTable table;
     private JTextField idT;
@@ -51,7 +52,6 @@ public class DBADelete extends JPanel {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setRowHeight(30);
         MP.add(table);
-        // MP.add(table.getTableHeader(), BorderLayout.PAGE_START);  //TODO 这里表头
 
         idT = new JTextField();
         idT.setFont(new Font("宋体", Font.PLAIN, 22));
@@ -96,7 +96,7 @@ public class DBADelete extends JPanel {
 
         SearchBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(idT.getText());  //todo 是否能直接响应  不能的话就先出来空白，之后直接一起做
+                id = Integer.parseInt(idT.getText());
                 try {
                     if (flag == 1) {
                         Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];

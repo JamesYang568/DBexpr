@@ -1,5 +1,6 @@
 package DialogGUI.Interface;
 
+import DialogGUI.Help.InputParse;
 import entity.Client;
 import handle.DataProcessing;
 import handle.Search_SQL_sen;
@@ -110,7 +111,7 @@ public class ChangeClient extends JPanel {
         JButton SBnt = new JButton("查询");
         SBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String sid = tid.getText();
+                String sid = InputParse.parseID(tid.getText());
                 if (!sid.equals("")) {
                     int id = Integer.parseInt(sid);
                     try {
@@ -139,7 +140,7 @@ public class ChangeClient extends JPanel {
         JButton SubBnt = new JButton("提交");
         SubBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(tid.getText());
+                int id = Integer.parseInt(InputParse.parseID(tid.getText()));
                 String name = tname.getText();
                 String company = tcompany.getText();
                 String addr = taddr.getText();

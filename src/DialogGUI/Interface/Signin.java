@@ -1,8 +1,10 @@
 package DialogGUI.Interface;
 
+import DialogGUI.Help.InputParse;
 import DialogGUI.Interface.Admin.ServerConsole;
 import DialogGUI.Interface.User.ClientConsole;
 import handle.DataProcessing;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -74,7 +76,7 @@ public class Signin extends JFrame {
 
         JButton SB = new JButton("确定");
         SB.addActionListener(e -> {
-            int id = Integer.parseInt(IDF.getText());
+            int id = Integer.parseInt(InputParse.parseID(IDF.getText()));
             String password = new String(PWF.getPassword());
             int flag = 0;
             try {

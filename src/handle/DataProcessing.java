@@ -18,7 +18,6 @@ public class DataProcessing {
         connectToBD();
         Init();// 第一次生成静态时的初始化
         // 我们不需要构造函数注意，所以必须自动调用方法init
-
     }
 
     public static void connectToBD() {
@@ -55,13 +54,14 @@ public class DataProcessing {
 
             String sql = "show tables;";
             ResultSet rs = statement.executeQuery(sql);
-//            ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
+//          这种得到元数据的方法不是很清楚  ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{"TABLE"});
             String[] tables = new String[4];
             int i = 0;
-            while (rs.next()) {
+            while (rs.next()) {  //查询四张表是不是已经建好了
                 tables[i] = rs.getString(1);
                 i++;
             }
+            //建表，如果不存在则建立那一张表
             if (!Arrays.asList(tables).contains("driver_info"))
                 statement.execute(Create_SQL_sen.sql1);
             if (!Arrays.asList(tables).contains("client_info"))
@@ -81,7 +81,6 @@ public class DataProcessing {
     /**
      * 建视图
      */
-
 
     /**
      * 插入信息 传入对象
@@ -153,7 +152,8 @@ public class DataProcessing {
 
     /**
      * 查询
-     * 请判断返回的长度来确定是查询一个还是查询多个
+     * 通过判断返回的长度来确定是查询一个还是查询多个
+     * 为了安全起见，如果查询不到，则生成一个空值
      */
     public static Car[] searchCar(String sql) throws SQLException {
         Statement statement;
@@ -176,7 +176,8 @@ public class DataProcessing {
             double rent_rate = resultSet.getDouble("rent_rate");
             arrayList.add(new Car(id, type, license, purchase_date, price, maintain_date, mile, working_time, rent_rate));
         }
-
+        if (arrayList.size() == 0)
+            arrayList.add(new Car());
         return arrayList.toArray(new Car[0]);
     }
 
@@ -196,7 +197,8 @@ public class DataProcessing {
             double salary = resultSet.getDouble("salary");
             arrayList.add(new Driver(id, name, enroll_date, salary));
         }
-
+        if (arrayList.size() == 0)
+            arrayList.add(new Driver());
         return arrayList.toArray(new Driver[0]);
     }
 
@@ -218,7 +220,8 @@ public class DataProcessing {
             String zipcode = resultSet.getString("zipcode");
             arrayList.add(new Client(id, "", name, company, tel, addr, zipcode));
         }
-
+        if (arrayList.size() == 0)
+            arrayList.add(new Client());
         return arrayList.toArray(new Client[0]);
     }
 
@@ -242,10 +245,12 @@ public class DataProcessing {
             int driver_id = resultSet.getInt("driver_id");
             arrayList.add(new Transaction(id, date, license, local, miles, times, client_id, driver_id));
         }
-
+        if (arrayList.size() == 0)
+            arrayList.add(new Transaction());
         return arrayList.toArray(new Transaction[0]);
     }
 
+    //为了方便的查询用户是否存在
     public static boolean searchClient(int userid, String password) throws SQLException {
         Statement statement;
         statement = connection.createStatement(
@@ -273,12 +278,11 @@ public class DataProcessing {
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "update car_info set maintain_date=" + ParseEntity.ParseDate2S(car.getMaintain_date()) +
                     ",mile=" + car.getMile() + ",working_time =" + car.getWorking_time() + ",rent_rate="
-                    + car.getRent_rate() + " where id=" + car.getId() + " and valid=1;"; //todo
+                    + car.getRent_rate() + " where id=" + car.getId() + " and valid=1;";
             statement.executeUpdate(sql);
             statement.close();
             return true;
-        } else {
-            //todo 已经是无效的数据了
+        } else {  //已经是无效的数据了 这里应该已经是比较安全的了，一般很难走到这个分支 （下同）
             return false;
         }
     }
@@ -295,7 +299,6 @@ public class DataProcessing {
             statement.close();
             return true;
         } else {
-            //todo 已经是无效的数据了
             return false;
         }
     }
@@ -314,7 +317,6 @@ public class DataProcessing {
             statement.close();
             return true;
         } else {
-            //todo 已经是无效的数据了
             return false;
         }
     }
@@ -354,19 +356,14 @@ public class DataProcessing {
     public static void disconnectFromDB() { //当关闭窗口时调用  因为没有更多的操作了，所以不再上抛异常
         if (!connectToDB) {
             try {
-                Thread ed = new Thread(new ExitDialog());  //todo 做一下提示
-                //ThreadGroup tg = new ThreadGroup();
-                //ed.sleep(1000);
                 connection.close();
+                Thread ed = new Thread(new ExitDialog());  //做一下提示
+                // TODO: 2020/11/22 这里需要有一个2秒钟的延时
                 System.out.println("数据库关闭");
 
             } catch (SQLException e) {
-                //e.printStackTrace();
                 System.out.print("database disconnect出错了");
-            }// catch (InterruptedException e) {
-            //				//e.printStackTrace();
-            //			}
-            finally {           //强制关闭
+            } finally {      //强制关闭
                 connectToDB = false;
             }
         }
