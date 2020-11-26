@@ -17,7 +17,7 @@ public class ParseEntity {
             e.printStackTrace();
         }
         Vector vector = new Vector();
-        for (Driver driver : data) { //生成一行
+        for (Driver driver : data) { // 生成一行
             Vector temp = new Vector();
             temp.add(driver.getId());
             temp.add(driver.getName());
@@ -70,7 +70,30 @@ public class ParseEntity {
         return vector;
     }
 
-    public static Date ParseDate2D(java.util.Date date) {
+    public Vector ParseTransaction(int client_id) {
+        Transaction[] data = new Transaction[0];
+        try {
+            data = DataProcessing.searchTransaction(Search_SQL_sen.get_all_TR_by_client(client_id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Vector vector = new Vector();
+        for (Transaction transaction : data) {
+            Vector temp = new Vector();
+            temp.add(transaction.getId());
+            temp.add(transaction.getDate());
+            temp.add(transaction.getLicense());
+            temp.add(transaction.getLocal());
+            temp.add(transaction.getMiles());
+            temp.add(transaction.getTimes());
+            temp.add(transaction.getClient_id());
+            temp.add(transaction.getDriver_id());
+            vector.add(temp);
+        }
+        return vector;
+    }
+
+    public static Date ParseDate2D(java.util.Date date) { // date转换为Java date
         return new Date(date.getTime());
     }
 

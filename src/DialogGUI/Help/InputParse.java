@@ -9,7 +9,7 @@ public class InputParse {
 
     public static String parseDate(String input) {
         input = input.trim();
-        if (input.matches("dd-dd-dd"))
+        if (input.matches("dddd-dd-dd"))
             return input;
 
         if (input.indexOf('.') != -1) {  //中间是使用.分隔的
