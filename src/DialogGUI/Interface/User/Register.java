@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import DialogGUI.Interface.InsertClient;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class Register extends JFrame {
 
@@ -19,13 +21,14 @@ public class Register extends JFrame {
     private JTextField t7;
 
     private JFrame welcome;
+
     /**
      * Create the frame.
      */
     public Register(JFrame welcome) {
         this.welcome = welcome;
         setTitle("注册客户");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 669, 690);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,9 +43,40 @@ public class Register extends JFrame {
         //MainP.getParent().getParent().getParent().getParent().getParent();
         contentPane.add(MainP, BorderLayout.CENTER);
         setVisible(true);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Window_extended();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
     }
 
-    public void Window_extended(){
+    public void Window_extended() {
         this.welcome.setExtendedState(JFrame.NORMAL);
     }
 }

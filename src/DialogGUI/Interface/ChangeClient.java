@@ -175,6 +175,7 @@ public class ChangeClient extends JPanel {
 
     private void reset() {
         tid.setText("");
+        tid.setEditable(true);
         tname.setText("");
         tname.setEditable(false);
         tcompany.setText("");

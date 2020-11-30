@@ -45,7 +45,7 @@ public class SelectSpaceitem extends JPanel {
             }
         });
         DriverBnt.setBounds(32, 377, 85, 59);
-        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 24));
         SelectP.add(DriverBnt);
 
         JButton CarBnt = new JButton("汽车");
@@ -55,7 +55,7 @@ public class SelectSpaceitem extends JPanel {
             }
         });
         CarBnt.setBounds(32, 88, 85, 53);
-        CarBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        CarBnt.setFont(new Font("宋体", Font.PLAIN, 24));
         SelectP.add(CarBnt);
 
         table = new JTable();
@@ -63,8 +63,10 @@ public class SelectSpaceitem extends JPanel {
         table.setBounds(173, 99, 423, 445);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setRowHeight(30);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
-        JScrollPane scrollPane = new JScrollPane();
+        JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setSize(490, 580);
         scrollPane.setLocation(137, 82);
         scrollPane.setViewportView(table);

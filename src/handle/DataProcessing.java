@@ -93,8 +93,8 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into car_info values (" + car.getId() + ",'" + car.getType() +
-                    "','" + car.getLicense() + "'," + ParseEntity.ParseDate2S(car.getPurchase_date()) +
-                    "," + car.getPrice() + "," + car.getMaintain_date() + "," + car.getMile() +
+                    "','" + car.getLicense() + "','" + ParseEntity.ParseDate2S(car.getPurchase_date()) +
+                    "'," + car.getPrice() + ",'" + car.getMaintain_date() + "'," + car.getMile() +
                     "," + car.getWorking_time() + "," + car.getRent_rate() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
@@ -126,7 +126,7 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into transaction_info values (" + transaction.getId() +
-                    "," + ParseEntity.ParseDate2S(transaction.getDate()) + ",'" + transaction.getLicense() + "','"
+                    ",'" + ParseEntity.ParseDate2S(transaction.getDate()) + "','" + transaction.getLicense() + "','"
                     + transaction.getLocal() + "'," + transaction.getMiles() + "," + transaction.getTimes() +
                     "," + transaction.getClient_id() + "," + transaction.getDriver_id() + "," + 1 + ")";
             statement.executeUpdate(sql);
@@ -143,7 +143,7 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into driver_info values (" + driver.getId() + ",'" + driver.getName()
-                    + "'," + ParseEntity.ParseDate2S(driver.getEnroll_date()) + "," + driver.getSalary() + "," + 1 + "," + 1 + ")";
+                    + "','" + ParseEntity.ParseDate2S(driver.getEnroll_date()) + "'," + driver.getSalary() + "," + 1 + "," + 1 + ")";
             statement.executeUpdate(sql);
             statement.close();
             return true;
@@ -276,8 +276,8 @@ public class DataProcessing {
             Statement statement;
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "update car_info set maintain_date=" + ParseEntity.ParseDate2S(car.getMaintain_date()) +
-                    ",mile=" + car.getMile() + ",working_time =" + car.getWorking_time() + ",rent_rate="
+            String sql = "update car_info set maintain_date='" + ParseEntity.ParseDate2S(car.getMaintain_date()) +
+                    "',mile=" + car.getMile() + ",working_time =" + car.getWorking_time() + ",rent_rate="
                     + car.getRent_rate() + " where id=" + car.getId() + " and valid=1;";
             statement.executeUpdate(sql);
             statement.close();

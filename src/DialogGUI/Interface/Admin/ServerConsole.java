@@ -1,5 +1,6 @@
 package DialogGUI.Interface.Admin;
 
+import CStool.ServerPlug;
 import DialogGUI.Interface.ChangeClient;
 import DialogGUI.Interface.InsertClient;
 import DialogGUI.Interface.SelectSpaceitem;
@@ -22,6 +23,8 @@ public class ServerConsole extends JFrame {
 
     private InsertClient insertClient;  // TODO: 2020/11/22 应该将判断标记内聚在panel中
     private ChangeClient changeClient;
+
+    private ServerPlug server;
 
     /**
      * Create the frame.
@@ -49,12 +52,12 @@ public class ServerConsole extends JFrame {
         tabbedPane.add("查询空闲资源", findAvailable());
         tabbedPane.add("增改用户", C_A_Client());
         tabbedPane.add("删除司机车辆", Delete());
-        tabbedPane.add("其他",otherStaff());
+        tabbedPane.add("其他", otherStaff());
         tabbedPane.setSelectedIndex(0);
-        
-        addWindowListener(new WindowAdapter(){
+
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){  //TODO 有没有必要，这个要测试
+            public void windowClosing(WindowEvent e) {  //TODO 有没有必要，这个要测试
                 System.out.println("Closed");
                 DataProcessing.disconnectFromDB();
             }
@@ -75,12 +78,14 @@ public class ServerConsole extends JFrame {
         insertClient.setVisible(false);
         changeClient.setEnabled(false);
         changeClient.setVisible(false);
-        CAPanel.add(insertClient, BorderLayout.CENTER);
-        CAPanel.add(changeClient, BorderLayout.CENTER);
+
+        //CAPanel.add(insertClient, BorderLayout.CENTER);
+        //CAPanel.add(changeClient, BorderLayout.CENTER);
 
         JButton addclientBnt = new JButton("增加用户");
         addclientBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) { //也可以尝试remove方法
+                CAPanel.add(insertClient, BorderLayout.CENTER);
                 insertClient.setVisible(true);
                 insertClient.setEnabled(true);
                 changeClient.setEnabled(false);
@@ -98,6 +103,7 @@ public class ServerConsole extends JFrame {
         JButton chaclientBnt = new JButton("修改用户");
         chaclientBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                CAPanel.add(changeClient, BorderLayout.CENTER);
                 insertClient.setVisible(false);
                 insertClient.setEnabled(false);
                 changeClient.setEnabled(true);
@@ -124,13 +130,13 @@ public class ServerConsole extends JFrame {
         this.FAPanel = new SelectSpaceitem();
         return this.FAPanel;
     }
-    
+
     private JPanel otherStaff() {
-    	this.OtherPanel = new OtherStaff();
-    	return this.OtherPanel;
+        this.OtherPanel = new OtherStaff();
+        return this.OtherPanel;
     }
 
-    public void finalize(){
+    public void finalize() {
         DataProcessing.disconnectFromDB();
     }
 }

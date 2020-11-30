@@ -85,7 +85,7 @@ public class Signin extends JFrame {
                 e1.printStackTrace();
             }
             if (flag == 1) {
-                new ClientConsole();
+                new ClientConsole(id);
                 dispose();
             } else if (flag == 2) {
                 ServerConsole.getInstance();
@@ -123,4 +123,9 @@ public class Signin extends JFrame {
             return 3;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        DataProcessing.disconnectFromDB();
+        super.finalize();
+    }
 }

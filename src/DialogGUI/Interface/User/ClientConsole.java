@@ -1,5 +1,6 @@
 package DialogGUI.Interface.User;
 
+import CStool.ClientPlug;
 import DialogGUI.Interface.ChangeClient;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class ClientConsole extends JFrame {
     private JPanel CAPanel;// 修改自己信息
 
     private int client_id;
+    private ClientPlug cSocket;
 
     /**
      * Create the frame.
@@ -31,11 +33,11 @@ public class ClientConsole extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setFont(new Font("宋体", Font.PLAIN, 22));
         contentPane.add(tabbedPane);
-        tabbedPane.setSelectedIndex(0);
 
         tabbedPane.add("选择业务", Submit());
         tabbedPane.add("查询已有业务", FindAvailable());
         tabbedPane.add("修改信息", C_A_Client());
+        tabbedPane.setSelectedIndex(0);
         setVisible(true);
     }
 
@@ -52,5 +54,11 @@ public class ClientConsole extends JFrame {
     private JPanel FindAvailable() {
         this.FAPanel = new transFind(this.client_id);
         return this.FAPanel;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        cSocket.closeConnection();
+        super.finalize();
     }
 }

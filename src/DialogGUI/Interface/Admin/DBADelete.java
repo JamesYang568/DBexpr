@@ -1,5 +1,6 @@
 package DialogGUI.Interface.Admin;
 
+import DialogGUI.Help.InputParse;
 import entity.*;
 import handle.*;
 
@@ -78,7 +79,7 @@ public class DBADelete extends JPanel {
                     else
                         tag = DataProcessing.delete(Delete_SQL_sen.delete_client(id));
                     if (!tag)
-                        JOptionPane.showMessageDialog(null,"正在使用中","出错了",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "正在使用中", "出错了", JOptionPane.ERROR_MESSAGE);
                 } catch (SQLException throwable) {
                     throwable.printStackTrace();
                 }
@@ -96,7 +97,10 @@ public class DBADelete extends JPanel {
 
         SearchBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                id = Integer.parseInt(idT.getText());
+                String ids = idT.getText();
+                if (ids.equals(""))
+                    return;
+                id = Integer.parseInt(ids);
                 try {
                     if (flag == 1) {
                         Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];
@@ -124,7 +128,7 @@ public class DBADelete extends JPanel {
             }
         });
         CBnt.setBounds(31, 72, 85, 39);
-        CBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        CBnt.setFont(new Font("宋体", Font.PLAIN, 24));
         SelectP.add(CBnt);
 
         JButton DBnt = new JButton("司机");
@@ -135,7 +139,7 @@ public class DBADelete extends JPanel {
                 SearchBnt.setEnabled(true);
             }
         });
-        DBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        DBnt.setFont(new Font("宋体", Font.PLAIN, 24));
         DBnt.setBounds(31, 250, 85, 39);
         SelectP.add(DBnt);
 
@@ -147,7 +151,7 @@ public class DBADelete extends JPanel {
                 SearchBnt.setEnabled(true);
             }
         });
-        ClBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        ClBnt.setFont(new Font("宋体", Font.PLAIN, 24));
         ClBnt.setBounds(31, 416, 85, 39);
         SelectP.add(ClBnt);
 
@@ -211,18 +215,32 @@ public class DBADelete extends JPanel {
     private void ParseCar(Car car) {
         data[0][1] = car.getType();
         data[1][1] = car.getLicense();
-        data[2][1] = car.getPurchase_date().toString();
+        data[2][1] = ParseEntity.ParseDate2S(car.getPurchase_date());
         data[3][1] = Double.toString(car.getPrice());
-        data[4][1] = car.getMaintain_date().toString();
+        data[4][1] = ParseEntity.ParseDate2S(car.getMaintain_date());
         data[5][1] = Double.toString(car.getMile());
         data[6][1] = Double.toString(car.getWorking_time());
         data[7][1] = Double.toString(car.getRent_rate());
+        table.setModel(new DefaultTableModel(
+                data, new String[]{"\u6807\u7B7E", "\u503C"}
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
 
     private void ParseDriver(Driver driver) {
         data[0][1] = driver.getName();
-        data[1][1] = driver.getEnroll_date().toString();
+        data[1][1] = ParseEntity.ParseDate2S(driver.getEnroll_date());
         data[2][1] = Double.toString(driver.getSalary());
+        table.setModel(new DefaultTableModel(
+                data, new String[]{"\u6807\u7B7E", "\u503C"}
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
 
     private void ParseClient(Client client) {
@@ -231,5 +249,13 @@ public class DBADelete extends JPanel {
         data[2][1] = client.getTel();
         data[3][1] = client.getAddr();
         data[4][1] = client.getZipcode();
+        table.setModel(new DefaultTableModel(
+                data, new String[]{"\u6807\u7B7E", "\u503C"}
+        ) {
+            public boolean isCellEditable(int row, int column) {//表格不允许被编辑
+                return false;
+            }
+        });
     }
+
 }

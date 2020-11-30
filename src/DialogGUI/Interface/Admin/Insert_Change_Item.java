@@ -11,8 +11,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 //注意此类不能被继承，因为覆写的setVisible不是window理解
 public final class Insert_Change_Item extends JFrame {
@@ -69,6 +69,11 @@ public final class Insert_Change_Item extends JFrame {
                     dateL.setText("购入日期");
                     salaryL.setText("租金率");
                     setComp_visible(true);
+                } else {
+                    nameL.setText("姓名");
+                    dateL.setText("参加工作时间");
+                    salaryL.setText("工资");
+                    setComp_visible(false);
                 }
             }
         });
@@ -203,9 +208,11 @@ public final class Insert_Change_Item extends JFrame {
                             String name = nameT.getText();
                             String date = InputParse.parseDate(dateT.getText());
                             double salary = Double.parseDouble(salaryT.getText());
-                            if (c_or_i)
-                                DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
-                            DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
+                            if (date != null) {
+                                if (c_or_i)
+                                    DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
+                                DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
+                            }
                         } else {
                             int id = Integer.parseInt(ids);
                             String type = nameT.getText();
@@ -216,12 +223,14 @@ public final class Insert_Change_Item extends JFrame {
                             double mile = Double.parseDouble(mileT.getText());
                             double hour = Double.parseDouble(hourT.getText());
                             String maintain = InputParse.parseDate(maintainT.getText());
-                            if (c_or_i)
-                                DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date),
-                                        price, Date.valueOf(maintain), mile, hour, rate));
-                            else
-                                DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
-                                    price, Date.valueOf(maintain), mile, hour, rate));
+                            if (date != null && maintain != null) {
+                                if (c_or_i)
+                                    DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date),
+                                            price, Date.valueOf(maintain), mile, hour, rate));
+                                else
+                                    DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
+                                            price, Date.valueOf(maintain), mile, hour, rate));
+                            }
                         }
                     } catch (SQLException ep) {
                         ep.printStackTrace();
@@ -249,7 +258,7 @@ public final class Insert_Change_Item extends JFrame {
                         if (select == 0) {
                             Driver driver = DataProcessing.searchDriver(Search_SQL_sen.get_a_driver(id))[0];
                             nameT.setText(driver.getName());
-                            dateT.setText(driver.getEnroll_date().toString());
+                            dateT.setText(ParseEntity.ParseDate2S(driver.getEnroll_date()));
                             salaryT.setText(Double.toString(driver.getSalary()));
                         } else {
                             setComp_visible(true);
@@ -257,7 +266,7 @@ public final class Insert_Change_Item extends JFrame {
                             nameT.setText(car.getType());
                             dateT.setText(ParseEntity.ParseDate2S(car.getPurchase_date()));
                             salaryT.setText(Double.toString(car.getRent_rate()));
-                            maintainT.setText(ParseEntity.ParseDate2S(car.getMaintain_date()));
+                            maintainT.setText(ParseEntity.ParseDate2S((car.getMaintain_date())));
                             licenseT.setText(car.getLicense());
                             priceT.setText(Double.toString(car.getPrice()));
                             mileT.setText(Double.toString(car.getMile()));
@@ -274,6 +283,7 @@ public final class Insert_Change_Item extends JFrame {
     }
 
     private void reset() {
+        this.salaryT.setText("");
         this.idT.setText("");
         this.priceT.setText("");
         this.hourT.setText("");

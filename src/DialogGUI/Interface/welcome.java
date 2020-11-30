@@ -69,7 +69,6 @@ public class welcome extends JFrame {
                 new Register(get_welcome());
                 //最小化
                 setState(JFrame.ICONIFIED);
-
             }
         });
         registerB.setFont(new Font("宋体", Font.PLAIN, 26));

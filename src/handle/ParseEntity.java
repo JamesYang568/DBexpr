@@ -21,7 +21,7 @@ public class ParseEntity {
             Vector temp = new Vector();
             temp.add(driver.getId());
             temp.add(driver.getName());
-            temp.add(driver.getEnroll_date());
+            temp.add(ParseDate2S(driver.getEnroll_date()));
             vector.add(temp);
         }
         return vector;
@@ -40,8 +40,8 @@ public class ParseEntity {
             temp.add(car.getId());
             temp.add(car.getType());
             temp.add(car.getRent_rate());
-            temp.add(car.getPurchase_date());
-            temp.add(car.getMaintain_date());
+            temp.add(ParseDate2S(car.getPurchase_date()));
+            temp.add(ParseDate2S(car.getMaintain_date()));
             temp.add(car.getMile());
             temp.add(car.getWorking_time());
             vector.add(temp);
@@ -81,7 +81,7 @@ public class ParseEntity {
         for (Transaction transaction : data) {
             Vector temp = new Vector();
             temp.add(transaction.getId());
-            temp.add(transaction.getDate());
+            temp.add(ParseDate2S(transaction.getDate()));
             temp.add(transaction.getLicense());
             temp.add(transaction.getLocal());
             temp.add(transaction.getMiles());
@@ -102,7 +102,9 @@ public class ParseEntity {
     }
 
     public static String ParseDate2S(java.util.Date date) {
+        if (date == null)
+            return "";
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return new String("'" + format.format(date) + "'");
+        return format.format(date);
     }
 }

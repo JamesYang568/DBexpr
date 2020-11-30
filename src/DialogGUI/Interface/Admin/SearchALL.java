@@ -73,6 +73,7 @@ public class SearchALL extends JFrame {
         table.setBounds(36, 110, 904, 470);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.setRowHeight(30);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setSize(951, 501);
