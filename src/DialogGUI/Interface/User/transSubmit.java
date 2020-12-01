@@ -1,7 +1,9 @@
 package DialogGUI.Interface.User;
 
+import CStool.ClientPlug;
 import DialogGUI.Help.InputParse;
 import DialogGUI.Help.TableParse;
+import entity.Transaction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +21,7 @@ public class transSubmit extends JPanel {
     /**
      * Create the panel.
      */
-    public transSubmit(int c_id) {
+    public transSubmit(int c_id, ClientPlug socket) {
         setLayout(null);
 
         JLabel title = new JLabel("选择业务界面");
@@ -109,7 +111,9 @@ public class transSubmit extends JPanel {
                     String local = localT.getText();
                     double miles = Double.parseDouble(milesT.getText());
                     double times = Double.parseDouble(timesT.getText());
-                    int client_id = c_id;
+                    //todo car_id需要通过点击表格选择
+                    Transaction transaction = new Transaction(date, car_id, local, miles, times, c_id);
+                    socket.sendData(transaction);
                 } catch (IllegalArgumentException ep) {
                     ep.printStackTrace();
                     JOptionPane.showMessageDialog(null, "日期格式错误！", "出错了", JOptionPane.INFORMATION_MESSAGE);

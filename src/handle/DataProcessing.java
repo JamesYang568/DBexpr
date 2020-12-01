@@ -126,7 +126,7 @@ public class DataProcessing {
             statement = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "insert into transaction_info values (" + transaction.getId() +
-                    ",'" + ParseEntity.ParseDate2S(transaction.getDate()) + "','" + transaction.getLicense() + "','"
+                    ",'" + ParseEntity.ParseDate2S(transaction.getDate()) + "'," + transaction.getCar_id() + ",'"
                     + transaction.getLocal() + "'," + transaction.getMiles() + "," + transaction.getTimes() +
                     "," + transaction.getClient_id() + "," + transaction.getDriver_id() + "," + 1 + ")";
             statement.executeUpdate(sql);
@@ -237,13 +237,13 @@ public class DataProcessing {
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             Date date = ParseEntity.ParseDate2D(resultSet.getDate("date"));
-            String license = resultSet.getString("license");
+            int car_id = Integer.parseInt(resultSet.getString("car_id"));
             String local = resultSet.getString("local");
             double miles = resultSet.getDouble("miles");
             double times = resultSet.getDouble("times");
             int client_id = resultSet.getInt("client_id");
             int driver_id = resultSet.getInt("driver_id");
-            arrayList.add(new Transaction(id, date, license, local, miles, times, client_id, driver_id));
+            arrayList.add(new Transaction(id, date, car_id, local, miles, times, client_id, driver_id));
         }
         if (arrayList.size() == 0)
             arrayList.add(new Transaction());

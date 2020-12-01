@@ -1,12 +1,13 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements Serializable {
     //发票号、日期、牌照号、地点、往返里程、行驶时间、客户号、司机号、是否正在进行
     private int id;
     private Date date;
-    private String license;
+    private int car_id;
     private String local;
     private double miles;
     private double times;
@@ -18,11 +19,20 @@ public class Transaction {
         this.valid = 1;
     }
 
-    public Transaction(int id, Date date, String license, String local, double miles, double times,
+    public Transaction(Date date, int car_id, String local, double miles, double times, int client_id) {
+        this.date = date;
+        this.car_id = car_id;
+        this.local = local;
+        this.miles = miles;
+        this.times = times;
+        this.client_id = client_id;
+    }
+
+    public Transaction(int id, Date date, int car_id, String local, double miles, double times,
                        int client_id, int driver_id) {
         this.id = id;
         this.date = date;
-        this.license = license;
+        this.car_id = car_id;
         this.local = local;
         this.miles = miles;
         this.times = times;
@@ -55,8 +65,8 @@ public class Transaction {
         return driver_id;
     }
 
-    public String getLicense() {
-        return license;
+    public int getCar_id() {
+        return car_id;
     }
 
     public String getLocal() {

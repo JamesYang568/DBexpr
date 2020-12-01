@@ -82,7 +82,7 @@ public class ParseEntity {
             Vector temp = new Vector();
             temp.add(transaction.getId());
             temp.add(ParseDate2S(transaction.getDate()));
-            temp.add(transaction.getLicense());
+            temp.add(transaction.getCar_id());
             temp.add(transaction.getLocal());
             temp.add(transaction.getMiles());
             temp.add(transaction.getTimes());

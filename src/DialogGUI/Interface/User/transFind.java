@@ -14,7 +14,7 @@ public class transFind extends JPanel {
     public transFind(int client_id) {
         setLayout(null);
 
-        JScrollPane scrollPane = new JScrollPane();
+        JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 44, 815, 524);
         add(scrollPane);
 

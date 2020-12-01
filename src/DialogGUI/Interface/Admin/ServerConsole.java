@@ -37,6 +37,7 @@ public class ServerConsole extends JFrame {
     }
 
     private ServerConsole() {
+        this.server = ServerPlug.getInstance();
         setTitle("管理员");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 670, 772);
@@ -58,7 +59,7 @@ public class ServerConsole extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {  //TODO 有没有必要，这个要测试
-                System.out.println("Closed");
+                System.out.println("Server Closed");
                 DataProcessing.disconnectFromDB();
             }
         });

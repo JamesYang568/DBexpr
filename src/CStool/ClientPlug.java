@@ -1,6 +1,8 @@
 package CStool;
 
-import java.io.EOFException;
+import entity.Transaction;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -37,15 +39,38 @@ public class ClientPlug {
         input = new ObjectInputStream(client.getInputStream());
     }
 
-    //普通信息传输 todo
-    public void sendData(String message) {
+    //失败
+    public void sendData() {
         try {
-            output.writeObject(message);//可以为线程编号
-            output.flush(); // flush data to output
-        }
-        catch (IOException ioException) {
+            output.writeBoolean(false); //可以为线程编号
+            output.flush();
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+
+    public void sendData(Transaction transaction) {
+        try {
+            output.writeObject(transaction); //这里面就包含了用户的id
+            output.flush();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public Transaction getData() {
+        Transaction transaction = null;
+        try {
+            transaction = (Transaction) input.readObject();
+//            //todo 显示一个对话框展示重要信息，点击确认完成，取消则再次发送信息，调用sendData(String message)直接将
+//            String message = "业务号" + transaction.getId() + "，顾客号" + transaction.getClient_id() + "，汽车号" + transaction.getCar_id() + "，司机号" + transaction.getDriver_id();
+//            int flag = JOptionPane.showConfirmDialog(null, message, "确认业务", JOptionPane.YES_NO_OPTION);
+//            if (flag == 0) //取消业务
+//                sendData();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return transaction;
     }
 
     public void closeConnection() {

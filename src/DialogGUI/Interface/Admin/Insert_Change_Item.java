@@ -36,7 +36,7 @@ public final class Insert_Change_Item extends JFrame {
     private final JLabel hourL;
 
     private int select = 0;
-    private boolean c_or_i = false;  //修改还是插入，默认为插入
+    private boolean c_or_i = false; // 修改还是插入，默认为插入
 
     /**
      * Create the frame.
@@ -107,7 +107,7 @@ public final class Insert_Change_Item extends JFrame {
             nameL.setBounds(57, 124, 91, 41);
             MP.add(nameL);
 
-            dateL = new JLabel("参加工作时间");  //TODO 这里不能直接输入格式问题
+            dateL = new JLabel("参加工作时间"); // TODO 这里不能直接输入格式问题
             dateL.setFont(new Font("宋体", Font.PLAIN, 22));
             dateL.setBounds(57, 201, 139, 41);
             MP.add(dateL);
@@ -209,9 +209,13 @@ public final class Insert_Change_Item extends JFrame {
                             String date = InputParse.parseDate(dateT.getText());
                             double salary = Double.parseDouble(salaryT.getText());
                             if (date != null) {
-                                if (c_or_i)
+                                if (c_or_i) {
                                     DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
-                                DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
+                                    JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
+                                    JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                }
                             }
                         } else {
                             int id = Integer.parseInt(ids);
@@ -224,20 +228,22 @@ public final class Insert_Change_Item extends JFrame {
                             double hour = Double.parseDouble(hourT.getText());
                             String maintain = InputParse.parseDate(maintainT.getText());
                             if (date != null && maintain != null) {
-                                if (c_or_i)
-                                    DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date),
-                                            price, Date.valueOf(maintain), mile, hour, rate));
-                                else
-                                    DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date),
-                                            price, Date.valueOf(maintain), mile, hour, rate));
+                                if (c_or_i) {
+                                    DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date), price,
+                                            Date.valueOf(maintain), mile, hour, rate));
+                                    JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date), price,
+                                            Date.valueOf(maintain), mile, hour, rate));
+                                    JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                }
                             }
                         }
                     } catch (SQLException ep) {
                         ep.printStackTrace();
                     } catch (IllegalArgumentException xp) {
                         xp.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "日期格式错误！",
-                                "出错了", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "日期格式错误！", "出错了", JOptionPane.INFORMATION_MESSAGE);
                     }
                     reset();
                 }
@@ -247,7 +253,7 @@ public final class Insert_Change_Item extends JFrame {
         CommitBnt.setBounds(323, 441, 139, 41);
         MP.add(CommitBnt);
 
-        FBnt.addActionListener(new ActionListener() {//说明要修改
+        FBnt.addActionListener(new ActionListener() {// 说明要修改
             public void actionPerformed(ActionEvent e) {
                 String ids = InputParse.parseID(idT.getText());
                 if (!ids.equals("")) {
@@ -332,5 +338,5 @@ public final class Insert_Change_Item extends JFrame {
         return rlt;
     }
 
-    //  汽车的类型、牌照、购买日期、价格不可以修改 todo
+    // 汽车的类型、牌照、购买日期、价格不可以修改 todo
 }

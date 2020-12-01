@@ -12,8 +12,9 @@ public class ClientConsole extends JFrame {
     private JPanel FAPanel;// 查询已有业务
     private JPanel SBPanel;// 提交放前所选业务
     private JPanel CAPanel;// 修改自己信息
-
+    private JPanel DEPanel;// 注销自己信息
     private int client_id;
+
     private ClientPlug cSocket;
 
     /**
@@ -37,12 +38,13 @@ public class ClientConsole extends JFrame {
         tabbedPane.add("选择业务", Submit());
         tabbedPane.add("查询已有业务", FindAvailable());
         tabbedPane.add("修改信息", C_A_Client());
+        tabbedPane.add("注销账户信息", DeleteC());
         tabbedPane.setSelectedIndex(0);
         setVisible(true);
     }
 
     private JPanel Submit() {
-        this.SBPanel = new transSubmit(this.client_id);
+        this.SBPanel = new transSubmit(this.client_id, cSocket);
         return this.SBPanel;
     }
 
@@ -56,9 +58,8 @@ public class ClientConsole extends JFrame {
         return this.FAPanel;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        cSocket.closeConnection();
-        super.finalize();
+    private JPanel DeleteC() {
+        this.DEPanel = new DeleteClient();
+        return this.DEPanel;
     }
 }

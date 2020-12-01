@@ -133,7 +133,7 @@ public class InsertClient extends JPanel {
                         JOptionPane.showMessageDialog(null, "插入失败，请重新尝试", "出错了", JOptionPane.ERROR_MESSAGE);
                     else if (flag == 0) {
                         Register register = (Register) getTopLevelAncestor(); //返回父类容器
-                        register.Window_extended();
+                        //register.Window_extended();
                         register.dispose();
                     }
                 } catch (SQLException e1) {
