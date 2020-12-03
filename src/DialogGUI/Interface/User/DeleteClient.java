@@ -72,8 +72,8 @@ public class DeleteClient extends JPanel {
                     if (flag) {
                         DataProcessing.delete(Delete_SQL_sen.delete_client(id));
                         JOptionPane.showMessageDialog(null, "注销成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-                        Signin signin = new Signin();
-                        signin.setVisible(true);
+                        welcome welcome = new welcome();
+                        welcome.setVisible(true);
                         ClientConsole clientConsole = (ClientConsole) getTopLevelAncestor();
                         clientConsole.dispose();
                     } else {

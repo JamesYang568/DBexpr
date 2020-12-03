@@ -1,8 +1,5 @@
 package DialogGUI.Interface.User;
 
-import CStool.ClientPlug;
-import DialogGUI.Interface.ChangeClient;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -14,8 +11,6 @@ public class ClientConsole extends JFrame {
     private JPanel CAPanel;// 修改自己信息
     private JPanel DEPanel;// 注销自己信息
     private int client_id;
-
-    private ClientPlug cSocket;
 
     /**
      * Create the frame.
@@ -38,18 +33,18 @@ public class ClientConsole extends JFrame {
         tabbedPane.add("选择业务", Submit());
         tabbedPane.add("查询已有业务", FindAvailable());
         tabbedPane.add("修改信息", C_A_Client());
-        tabbedPane.add("注销账户信息", DeleteC());
+        tabbedPane.add("注销账户信息",DeleteC());
         tabbedPane.setSelectedIndex(0);
         setVisible(true);
     }
 
     private JPanel Submit() {
-        this.SBPanel = new transSubmit(this.client_id, cSocket);
+        this.SBPanel = new transSubmit(this.client_id);
         return this.SBPanel;
     }
 
     private JPanel C_A_Client() {
-        this.CAPanel = new ChangeClient();
+        this.CAPanel = new UpdateClient(this.client_id);
         return this.CAPanel;
     }
 
@@ -57,9 +52,9 @@ public class ClientConsole extends JFrame {
         this.FAPanel = new transFind(this.client_id);
         return this.FAPanel;
     }
-
+    
     private JPanel DeleteC() {
-        this.DEPanel = new DeleteClient();
-        return this.DEPanel;
+    	this.DEPanel=new DeleteClient();
+    	return this.DEPanel;
     }
 }
