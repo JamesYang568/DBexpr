@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class transFind extends JPanel {
-    private JTable table;
+    private final JTable table;
 
     /**
      * Create the panel.

@@ -10,15 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class Register extends JFrame {
-
     private JPanel contentPane;
-    private JTextField t1;
-    private JTextField t2;
-    private JTextField t3;
-    private JTextField t4;
-    private JTextField t5;
-    private JTextField t6;
-    private JTextField t7;
 
     private JFrame welcome;
 
@@ -40,7 +32,6 @@ public class Register extends JFrame {
         Title.setFont(new Font("宋体", Font.BOLD, 32));
         contentPane.add(Title, BorderLayout.NORTH);
         JPanel MainP = new InsertClient(0);
-        //MainP.getParent().getParent().getParent().getParent().getParent();
         contentPane.add(MainP, BorderLayout.CENTER);
         setVisible(true);
 

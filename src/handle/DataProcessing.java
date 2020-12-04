@@ -153,7 +153,7 @@ public class DataProcessing {
     /**
      * 查询
      * 通过判断返回的长度来确定是查询一个还是查询多个
-     * 为了安全起见，如果查询不到，则生成一个空值
+     * 如果查询不到，则返回null
      */
     public static Car[] searchCar(String sql) throws SQLException {
         Statement statement;
@@ -177,8 +177,9 @@ public class DataProcessing {
             arrayList.add(new Car(id, type, license, purchase_date, price, maintain_date, mile, working_time, rent_rate));
         }
         if (arrayList.size() == 0)
-            arrayList.add(new Car());
-        return arrayList.toArray(new Car[0]);
+            return null;
+        else
+            return arrayList.toArray(new Car[0]);
     }
 
     public static Driver[] searchDriver(String sql) throws SQLException {
@@ -198,8 +199,9 @@ public class DataProcessing {
             arrayList.add(new Driver(id, name, enroll_date, salary));
         }
         if (arrayList.size() == 0)
-            arrayList.add(new Driver());
-        return arrayList.toArray(new Driver[0]);
+            return null;
+        else
+            return arrayList.toArray(new Driver[0]);
     }
 
     public static Client[] searchClient(String sql) throws SQLException {
@@ -221,8 +223,9 @@ public class DataProcessing {
             arrayList.add(new Client(id, "", name, company, tel, addr, zipcode));
         }
         if (arrayList.size() == 0)
-            arrayList.add(new Client());
-        return arrayList.toArray(new Client[0]);
+            return null;
+        else
+            return arrayList.toArray(new Client[0]);
     }
 
     public static Transaction[] searchTransaction(String sql) throws SQLException {
@@ -246,8 +249,9 @@ public class DataProcessing {
             arrayList.add(new Transaction(id, date, car_id, local, miles, times, client_id, driver_id));
         }
         if (arrayList.size() == 0)
-            arrayList.add(new Transaction());
-        return arrayList.toArray(new Transaction[0]);
+            return null;
+        else
+            return arrayList.toArray(new Transaction[0]);
     }
 
     //为了方便的查询用户是否存在

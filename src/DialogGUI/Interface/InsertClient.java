@@ -16,13 +16,13 @@ import handle.DataProcessing;
  * flag =0为管理员的顾客插入
  */
 public class InsertClient extends JPanel {
-    private JTextField tid;
-    private JPasswordField tpassword;
-    private JTextField tname;
-    private JTextField tcompany;
-    private JTextField ttel;
-    private JTextField taddr;
-    private JTextField tzipcode;
+    private final JTextField idT;
+    private final JPasswordField passwordT;
+    private final JTextField nameT;
+    private final JTextField companyT;
+    private final JTextField telT;
+    private final JTextField addrT;
+    private final JTextField zipcodeT;
 
     /**
      * Create the panel.
@@ -76,57 +76,60 @@ public class InsertClient extends JPanel {
         lzipcode.setBounds(82, 460, 133, 41);
         add(lzipcode);
 
-        tid = new JTextField();
-        tid.setFont(new Font("宋体", Font.PLAIN, 22));
-        tid.setBounds(283, 80, 174, 41);
-        add(tid);
-        tid.setColumns(15);
+        //文本框初始化
+        {
+            idT = new JTextField();
+            idT.setFont(new Font("宋体", Font.PLAIN, 22));
+            idT.setBounds(283, 80, 174, 41);
+            add(idT);
+            idT.setColumns(15);
 
-        tpassword = new JPasswordField();
-        tpassword.setFont(new Font("宋体", Font.PLAIN, 20));
-        tpassword.setBounds(283, 139, 174, 41);
-        add(tpassword);
+            passwordT = new JPasswordField();
+            passwordT.setFont(new Font("宋体", Font.PLAIN, 20));
+            passwordT.setBounds(283, 139, 174, 41);
+            add(passwordT);
 
-        tname = new JTextField();
-        tname.setFont(new Font("宋体", Font.PLAIN, 22));
-        tname.setColumns(15);
-        tname.setBounds(283, 199, 174, 41);
-        add(tname);
+            nameT = new JTextField();
+            nameT.setFont(new Font("宋体", Font.PLAIN, 22));
+            nameT.setColumns(15);
+            nameT.setBounds(283, 199, 174, 41);
+            add(nameT);
 
-        tcompany = new JTextField();
-        tcompany.setFont(new Font("宋体", Font.PLAIN, 22));
-        tcompany.setColumns(15);
-        tcompany.setBounds(283, 255, 313, 41);
-        add(tcompany);
+            companyT = new JTextField();
+            companyT.setFont(new Font("宋体", Font.PLAIN, 22));
+            companyT.setColumns(15);
+            companyT.setBounds(283, 255, 313, 41);
+            add(companyT);
 
-        ttel = new JTextField();
-        ttel.setFont(new Font("宋体", Font.PLAIN, 22));
-        ttel.setColumns(15);
-        ttel.setBounds(283, 325, 212, 41);
-        add(ttel);
+            telT = new JTextField();
+            telT.setFont(new Font("宋体", Font.PLAIN, 22));
+            telT.setColumns(15);
+            telT.setBounds(283, 325, 212, 41);
+            add(telT);
 
-        taddr = new JTextField();
-        taddr.setFont(new Font("宋体", Font.PLAIN, 22));
-        taddr.setColumns(30);
-        taddr.setBounds(283, 394, 313, 41);
-        add(taddr);
+            addrT = new JTextField();
+            addrT.setFont(new Font("宋体", Font.PLAIN, 22));
+            addrT.setColumns(30);
+            addrT.setBounds(283, 394, 313, 41);
+            add(addrT);
 
-        tzipcode = new JTextField();
-        tzipcode.setFont(new Font("宋体", Font.PLAIN, 22));
-        tzipcode.setColumns(15);
-        tzipcode.setBounds(283, 460, 174, 41);
-        add(tzipcode);
+            zipcodeT = new JTextField();
+            zipcodeT.setFont(new Font("宋体", Font.PLAIN, 22));
+            zipcodeT.setColumns(15);
+            zipcodeT.setBounds(283, 460, 174, 41);
+            add(zipcodeT);
+        }
 
         JButton SubBnt = new JButton("提交");
         SubBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(InputParse.parseID(tid.getText()));
-                String password = new String(tpassword.getPassword());
-                String name = tname.getText();
-                String company = tcompany.getText();
-                String addr = taddr.getText();
-                String tel = ttel.getText();
-                String zipcode = tzipcode.getText();
+                int id = Integer.parseInt(InputParse.parseID(idT.getText()));
+                String password = new String(passwordT.getPassword());
+                String name = nameT.getText();
+                String company = companyT.getText();
+                String addr = addrT.getText();
+                String tel = telT.getText();
+                String zipcode = zipcodeT.getText();
                 Client client = new Client(id, password, name, company, tel, addr, zipcode);
                 try {
                     if (!DataProcessing.insertClient(client) && flag == 1)
@@ -159,12 +162,12 @@ public class InsertClient extends JPanel {
     }
 
     private void reset() {
-        tid.setText("");
-        tpassword.setText("");
-        tname.setText("");
-        tcompany.setText("");
-        taddr.setText("");
-        ttel.setText("");
-        tzipcode.setText("");
+        idT.setText("");
+        passwordT.setText("");
+        nameT.setText("");
+        companyT.setText("");
+        addrT.setText("");
+        telT.setText("");
+        zipcodeT.setText("");
     }
 }

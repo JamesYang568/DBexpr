@@ -1,4 +1,4 @@
-package DialogGUI.Interface;
+package DialogGUI.Interface.Admin;
 
 import DialogGUI.Help.InputParse;
 import entity.Client;
@@ -14,12 +14,12 @@ import java.sql.SQLException;
  * 在客户自管理和管理员管理界面共用这个panel
  */
 public class ChangeClient extends JPanel {
-    private JTextField tid;
-    private JTextField tname;
-    private JTextField tcompany;
-    private JTextField ttel;
-    private JTextField taddr;
-    private JTextField tzipcode;
+    private final JTextField idT;
+    private final JTextField nameT;
+    private final JTextField companyT;
+    private final JTextField telT;
+    private final JTextField addrT;
+    private final JTextField zipcodeT;
 
     /**
      * Create the panel.
@@ -67,66 +67,74 @@ public class ChangeClient extends JPanel {
         lzipcode.setBounds(82, 428, 133, 41);
         add(lzipcode);
 
-        tid = new JTextField();
-        tid.setFont(new Font("宋体", Font.PLAIN, 22));
-        tid.setBounds(283, 80, 174, 41);
-        add(tid);
-        tid.setColumns(15);
+        // 初始化文本框
+        {
+            idT = new JTextField();
+            idT.setFont(new Font("宋体", Font.PLAIN, 22));
+            idT.setBounds(283, 80, 174, 41);
+            add(idT);
+            idT.setColumns(15);
 
-        tname = new JTextField();
-        tname.setEditable(false);
-        tname.setFont(new Font("宋体", Font.PLAIN, 22));
-        tname.setColumns(15);
-        tname.setBounds(283, 151, 174, 41);
-        add(tname);
+            nameT = new JTextField();
+            nameT.setEditable(false);
+            nameT.setFont(new Font("宋体", Font.PLAIN, 22));
+            nameT.setColumns(15);
+            nameT.setBounds(283, 151, 174, 41);
+            add(nameT);
 
-        tcompany = new JTextField();
-        tcompany.setEditable(false);
-        tcompany.setFont(new Font("宋体", Font.PLAIN, 22));
-        tcompany.setColumns(15);
-        tcompany.setBounds(283, 218, 287, 41);
-        add(tcompany);
+            companyT = new JTextField();
+            companyT.setEditable(false);
+            companyT.setFont(new Font("宋体", Font.PLAIN, 22));
+            companyT.setColumns(15);
+            companyT.setBounds(283, 218, 287, 41);
+            add(companyT);
 
-        ttel = new JTextField();
-        ttel.setEditable(false);
-        ttel.setFont(new Font("宋体", Font.PLAIN, 22));
-        ttel.setColumns(15);
-        ttel.setBounds(283, 288, 208, 41);
-        add(ttel);
+            telT = new JTextField();
+            telT.setEditable(false);
+            telT.setFont(new Font("宋体", Font.PLAIN, 22));
+            telT.setColumns(15);
+            telT.setBounds(283, 288, 208, 41);
+            add(telT);
 
-        taddr = new JTextField();
-        taddr.setEditable(false);
-        taddr.setFont(new Font("宋体", Font.PLAIN, 22));
-        taddr.setColumns(15);
-        taddr.setBounds(283, 357, 287, 41);
-        add(taddr);
+            addrT = new JTextField();
+            addrT.setEditable(false);
+            addrT.setFont(new Font("宋体", Font.PLAIN, 22));
+            addrT.setColumns(15);
+            addrT.setBounds(283, 357, 287, 41);
+            add(addrT);
 
-        tzipcode = new JTextField();
-        tzipcode.setEditable(false);
-        tzipcode.setFont(new Font("宋体", Font.PLAIN, 22));
-        tzipcode.setColumns(15);
-        tzipcode.setBounds(283, 428, 174, 41);
-        add(tzipcode);
+            zipcodeT = new JTextField();
+            zipcodeT.setEditable(false);
+            zipcodeT.setFont(new Font("宋体", Font.PLAIN, 22));
+            zipcodeT.setColumns(15);
+            zipcodeT.setBounds(283, 428, 174, 41);
+            add(zipcodeT);
+        }
 
         JButton SBnt = new JButton("查询");
         SBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String sid = InputParse.parseID(tid.getText());
+                String sid = InputParse.parseID(idT.getText());
                 if (!sid.equals("")) {
                     int id = Integer.parseInt(sid);
                     try {
                         Client[] client = DataProcessing.searchClient(Search_SQL_sen.get_a_client(id));
-                        tname.setText(client[0].getName());
-                        tcompany.setText(client[0].getCompany());
-                        taddr.setText(client[0].getAddr());
-                        ttel.setText(client[0].getTel());
-                        tzipcode.setText(client[0].getZipcode());
-                        tname.setEditable(true);
-                        tcompany.setEditable(true);
-                        ttel.setEditable(true);
-                        taddr.setEditable(true);
-                        tzipcode.setEditable(true);
-                        tid.setEditable(false);
+                        if (client != null) {
+                            nameT.setText(client[0].getName());
+                            companyT.setText(client[0].getCompany());
+                            addrT.setText(client[0].getAddr());
+                            telT.setText(client[0].getTel());
+                            zipcodeT.setText(client[0].getZipcode());
+                            nameT.setEditable(true);
+                            companyT.setEditable(true);
+                            telT.setEditable(true);
+                            addrT.setEditable(true);
+                            zipcodeT.setEditable(true);
+                            idT.setEditable(false);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "没有查到此客户", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                            idT.setText("");
+                        }
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -140,12 +148,12 @@ public class ChangeClient extends JPanel {
         JButton SubBnt = new JButton("提交");
         SubBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(InputParse.parseID(tid.getText()));
-                String name = tname.getText();
-                String company = tcompany.getText();
-                String addr = taddr.getText();
-                String tel = ttel.getText();
-                String zipcode = tzipcode.getText();
+                int id = Integer.parseInt(InputParse.parseID(idT.getText()));
+                String name = nameT.getText();
+                String company = companyT.getText();
+                String addr = addrT.getText();
+                String tel = telT.getText();
+                String zipcode = zipcodeT.getText();
                 Client client = new Client(id, "", name, company, tel, addr, zipcode);
                 try {
                     if (!DataProcessing.updateClient(client))
@@ -174,17 +182,17 @@ public class ChangeClient extends JPanel {
     }
 
     private void reset() {
-        tid.setText("");
-        tid.setEditable(true);
-        tname.setText("");
-        tname.setEditable(false);
-        tcompany.setText("");
-        tcompany.setEditable(false);
-        taddr.setText("");
-        taddr.setEditable(false);
-        ttel.setText("");
-        ttel.setEditable(false);
-        tzipcode.setText("");
-        tzipcode.setEditable(false);
+        idT.setText("");
+        idT.setEditable(true);
+        nameT.setText("");
+        nameT.setEditable(false);
+        companyT.setText("");
+        companyT.setEditable(false);
+        addrT.setText("");
+        addrT.setEditable(false);
+        telT.setText("");
+        telT.setEditable(false);
+        zipcodeT.setText("");
+        zipcodeT.setEditable(false);
     }
 }

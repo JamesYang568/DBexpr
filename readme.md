@@ -1,6 +1,7 @@
 car driver client 通过valid变量判断是否有效（1有效），因此删除一个记录是update而不是delete
 在创建这些类的对象时一定要注意valid的控制，因为默认情况下新建的对象valid为1
 
+统一了图形界面的组件命名格式
 
 要保证用户看到的是valid信息，但是管理员可以看到所有的信息，包括是否有效要展示出来
 
@@ -100,3 +101,10 @@ DialogGUI.Interface是图形界面的主要模块，其中包括了服务端、�
     服务端的主界面为ServerConsole，客户端的主界面为ClientConsole，整个程序的其他主功能都需要被这两个类调用
     welcome和xxxConsole无关，因此不存在耦合关系，(数据库可以在任何时间崩溃，welcome仍然可以直接运行。)
     界面主要以JPanel实现，内聚较高。
+    
+增加安全接口，对查询错误的出错处理进行了优化，DP中查询不到则返回null，在图形界面接收后检查。
+
+如果插入更新错误也做出对应的提示
+
+
+打包  https://blog.csdn.net/weixin_38310965/article/details/80392767

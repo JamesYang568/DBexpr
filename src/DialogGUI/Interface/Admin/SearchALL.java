@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * 这个类不存在数据库操作，因此是完全安全的
@@ -20,7 +22,7 @@ public class SearchALL extends JFrame {
     /**
      * Create the frame.
      */
-    public SearchALL() {
+    public SearchALL(JFrame outer) {
         setTitle("查询信息");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1013, 714);
@@ -75,12 +77,55 @@ public class SearchALL extends JFrame {
         table.setRowHeight(30);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
-        JScrollPane scrollPane = new JScrollPane();
+        JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setSize(951, 501);
         scrollPane.setLocation(15, 95);
         scrollPane.setViewportView(table);
         MP.add(scrollPane);
+
+        //添加窗口监听
+        this.windowLis(outer);
+
         setVisible(true);
+    }
+
+    private void windowLis(JFrame outer) {
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                outer.setExtendedState(JFrame.NORMAL);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
 }

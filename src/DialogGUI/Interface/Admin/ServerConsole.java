@@ -1,7 +1,7 @@
 package DialogGUI.Interface.Admin;
 
+import CStool.ServerDataGSocket;
 import CStool.ServerPlug;
-import DialogGUI.Interface.ChangeClient;
 import DialogGUI.Interface.InsertClient;
 import DialogGUI.Interface.SelectSpaceitem;
 import handle.DataProcessing;
@@ -24,7 +24,8 @@ public class ServerConsole extends JFrame {
     private InsertClient insertClient;  // TODO: 2020/11/22 应该将判断标记内聚在panel中
     private ChangeClient changeClient;
 
-    private ServerPlug server;
+    //private ServerPlug server;
+    //private ServerDataGSocket server;
 
     /**
      * Create the frame.
@@ -37,7 +38,7 @@ public class ServerConsole extends JFrame {
     }
 
     private ServerConsole() {
-        this.server = ServerPlug.getInstance();
+        //this.server = ServerDataGSocket.getInstance();
         setTitle("管理员");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 670, 772);

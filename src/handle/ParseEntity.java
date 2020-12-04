@@ -17,6 +17,8 @@ public class ParseEntity {
             e.printStackTrace();
         }
         Vector vector = new Vector();
+        if (data == null)
+            data = new Driver[0];
         for (Driver driver : data) { // 生成一行
             Vector temp = new Vector();
             temp.add(driver.getId());
@@ -35,6 +37,8 @@ public class ParseEntity {
             e.printStackTrace();
         }
         Vector vector = new Vector();
+        if (data == null)
+            data = new Car[0];
         for (Car car : data) {
             Vector temp = new Vector();
             temp.add(car.getId());
@@ -57,6 +61,8 @@ public class ParseEntity {
             e.printStackTrace();
         }
         Vector vector = new Vector();
+        if (data == null)
+            data = new Client[0];
         for (Client client : data) {
             Vector temp = new Vector();
             temp.add(client.getId());
@@ -78,6 +84,8 @@ public class ParseEntity {
             e.printStackTrace();
         }
         Vector vector = new Vector();
+        if (data == null)
+            data = new Transaction[0];
         for (Transaction transaction : data) {
             Vector temp = new Vector();
             temp.add(transaction.getId());

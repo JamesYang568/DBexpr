@@ -1,6 +1,5 @@
 package DialogGUI.Interface.Admin;
 
-import DialogGUI.Help.InputParse;
 import entity.*;
 import handle.*;
 
@@ -103,14 +102,29 @@ public class DBADelete extends JPanel {
                 id = Integer.parseInt(ids);
                 try {
                     if (flag == 1) {
-                        Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];
-                        ParseCar(car);
+                        Car[] car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id));
+                        if (car == null) {
+                            JOptionPane.showMessageDialog(null, "没有查到此车辆", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                            idT.setText("");
+                            ParseCar(null); //保证表格被刷新
+                        } else
+                            ParseCar(car[0]);
                     } else if (flag == 2) {
-                        Driver driver = DataProcessing.searchDriver(Search_SQL_sen.get_a_driver(id))[0];
-                        ParseDriver(driver);
+                        Driver[] driver = DataProcessing.searchDriver(Search_SQL_sen.get_a_driver(id));
+                        if (driver == null) {
+                            JOptionPane.showMessageDialog(null, "没有查到此司机", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                            idT.setText("");
+                            ParseDriver(null); //保证表格被刷新
+                        } else
+                            ParseDriver(driver[0]);
                     } else {
-                        Client c = DataProcessing.searchClient(Search_SQL_sen.get_a_client(id))[0];
-                        ParseClient(c);
+                        Client[] c = DataProcessing.searchClient(Search_SQL_sen.get_a_client(id));
+                        if (c == null) {
+                            JOptionPane.showMessageDialog(null, "没有查到此客户", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                            idT.setText("");
+                            ParseClient(null);  //保证表格被刷新
+                        } else
+                            ParseClient(c[0]);
                     }
                 } catch (SQLException error) {
                     error.printStackTrace();
@@ -213,14 +227,20 @@ public class DBADelete extends JPanel {
      * 这里对data进行的是内封装，耦合程度比较大，但操作起来更方便，这导致本类是不安全的
      */
     private void ParseCar(Car car) {
-        data[0][1] = car.getType();
-        data[1][1] = car.getLicense();
-        data[2][1] = ParseEntity.ParseDate2S(car.getPurchase_date());
-        data[3][1] = Double.toString(car.getPrice());
-        data[4][1] = ParseEntity.ParseDate2S(car.getMaintain_date());
-        data[5][1] = Double.toString(car.getMile());
-        data[6][1] = Double.toString(car.getWorking_time());
-        data[7][1] = Double.toString(car.getRent_rate());
+        if (car == null) {
+            for (int i = 0; i < 8; i++) {
+                data[i][1] = "";
+            }
+        } else {
+            data[0][1] = car.getType();
+            data[1][1] = car.getLicense();
+            data[2][1] = ParseEntity.ParseDate2S(car.getPurchase_date());
+            data[3][1] = Double.toString(car.getPrice());
+            data[4][1] = ParseEntity.ParseDate2S(car.getMaintain_date());
+            data[5][1] = Double.toString(car.getMile());
+            data[6][1] = Double.toString(car.getWorking_time());
+            data[7][1] = Double.toString(car.getRent_rate());
+        }
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
         ) {
@@ -231,9 +251,15 @@ public class DBADelete extends JPanel {
     }
 
     private void ParseDriver(Driver driver) {
-        data[0][1] = driver.getName();
-        data[1][1] = ParseEntity.ParseDate2S(driver.getEnroll_date());
-        data[2][1] = Double.toString(driver.getSalary());
+        if (driver == null) {
+            for (int i = 0; i < 3; i++) {
+                data[i][1] = "";
+            }
+        } else {
+            data[0][1] = driver.getName();
+            data[1][1] = ParseEntity.ParseDate2S(driver.getEnroll_date());
+            data[2][1] = Double.toString(driver.getSalary());
+        }
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
         ) {
@@ -244,11 +270,17 @@ public class DBADelete extends JPanel {
     }
 
     private void ParseClient(Client client) {
-        data[0][1] = client.getName();
-        data[1][1] = client.getCompany();
-        data[2][1] = client.getTel();
-        data[3][1] = client.getAddr();
-        data[4][1] = client.getZipcode();
+        if (client == null) {
+            for (int i = 0; i < 5; i++) {
+                data[i][1] = "";
+            }
+        } else {
+            data[0][1] = client.getName();
+            data[1][1] = client.getCompany();
+            data[2][1] = client.getTel();
+            data[3][1] = client.getAddr();
+            data[4][1] = client.getZipcode();
+        }
         table.setModel(new DefaultTableModel(
                 data, new String[]{"\u6807\u7B7E", "\u503C"}
         ) {

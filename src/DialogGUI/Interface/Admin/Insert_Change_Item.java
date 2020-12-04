@@ -14,7 +14,7 @@ import java.awt.event.*;
 import java.sql.Date;
 import java.sql.SQLException;
 
-//注意此类不能被继承，因为覆写的setVisible不是window理解
+//注意此类不能被继承  内聚程度较高
 public final class Insert_Change_Item extends JFrame {
     private final JTextField idT;
     private final JTextField nameT;
@@ -41,7 +41,7 @@ public final class Insert_Change_Item extends JFrame {
     /**
      * Create the frame.
      */
-    public Insert_Change_Item() {
+    public Insert_Change_Item(JFrame outer) {
         setTitle("增改资源");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 819, 600);
@@ -82,6 +82,9 @@ public final class Insert_Change_Item extends JFrame {
         comboBox.setFont(new Font("宋体", Font.PLAIN, 22));
         comboBox.setBounds(74, 51, 153, 41);
         MP.add(comboBox);
+
+        //添加窗口响应
+        this.windowLis(outer);
 
         // 初始化标签和文本框
         {
@@ -201,22 +204,37 @@ public final class Insert_Change_Item extends JFrame {
         CommitBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String ids = InputParse.parseID(idT.getText());
+                // 如果输入了id
                 if (!ids.equals("")) {
                     try {
+                        // 判断选择项目
                         if (select == 0) {
                             int id = Integer.parseInt(ids);
                             String name = nameT.getText();
                             String date = InputParse.parseDate(dateT.getText());
                             double salary = Double.parseDouble(salaryT.getText());
+                            //输入的日期格式正确
                             if (date != null) {
+                                //判断是插入还是修改
                                 if (c_or_i) {
-                                    DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
-                                    JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    boolean v = DataProcessing.updateDriver(new Driver(id, name, Date.valueOf(date), salary));
+                                    if (v)  // 执行情况
+                                        JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "修改失败！", "出错了", JOptionPane.ERROR_MESSAGE);
+                                        reset();
+                                    }
                                 } else {
-                                    DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
-                                    JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    boolean v = DataProcessing.insertDriver(new Driver(id, name, Date.valueOf(date), salary));
+                                    if (v)
+                                        JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "插入失败！", "出错了", JOptionPane.ERROR_MESSAGE);
+                                        reset();
+                                    }
                                 }
                             }
+                            // 如果日期格式错误，则直接返回
                         } else {
                             int id = Integer.parseInt(ids);
                             String type = nameT.getText();
@@ -227,15 +245,26 @@ public final class Insert_Change_Item extends JFrame {
                             double mile = Double.parseDouble(mileT.getText());
                             double hour = Double.parseDouble(hourT.getText());
                             String maintain = InputParse.parseDate(maintainT.getText());
+                            //检查日期是否正确
                             if (date != null && maintain != null) {
                                 if (c_or_i) {
-                                    DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date), price,
+                                    boolean v = DataProcessing.updateCar(new Car(id, type, license, Date.valueOf(date), price,
                                             Date.valueOf(maintain), mile, hour, rate));
-                                    JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    if (v)
+                                        JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "修改失败！", "出错了", JOptionPane.ERROR_MESSAGE);
+                                        reset();
+                                    }
                                 } else {
-                                    DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date), price,
+                                    boolean v = DataProcessing.insertCar(new Car(id, type, license, Date.valueOf(date), price,
                                             Date.valueOf(maintain), mile, hour, rate));
-                                    JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    if (v)
+                                        JOptionPane.showMessageDialog(null, "插入成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "插入失败！", "出错了", JOptionPane.ERROR_MESSAGE);
+                                        reset();
+                                    }
                                 }
                             }
                         }
@@ -245,7 +274,7 @@ public final class Insert_Change_Item extends JFrame {
                         xp.printStackTrace();
                         JOptionPane.showMessageDialog(null, "日期格式错误！", "出错了", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    reset();
+                    reset();  //点击结束最后的操作
                 }
             }
         });
@@ -253,7 +282,7 @@ public final class Insert_Change_Item extends JFrame {
         CommitBnt.setBounds(323, 441, 139, 41);
         MP.add(CommitBnt);
 
-        FBnt.addActionListener(new ActionListener() {// 说明要修改
+        FBnt.addActionListener(new ActionListener() {// 说明要修改  解释请看JOptionPane.showMessageDialog 中文部分
             public void actionPerformed(ActionEvent e) {
                 String ids = InputParse.parseID(idT.getText());
                 if (!ids.equals("")) {
@@ -262,21 +291,36 @@ public final class Insert_Change_Item extends JFrame {
                     try {
                         int id = Integer.parseInt(ids);
                         if (select == 0) {
-                            Driver driver = DataProcessing.searchDriver(Search_SQL_sen.get_a_driver(id))[0];
-                            nameT.setText(driver.getName());
-                            dateT.setText(ParseEntity.ParseDate2S(driver.getEnroll_date()));
-                            salaryT.setText(Double.toString(driver.getSalary()));
+                            Driver[] data = DataProcessing.searchDriver(Search_SQL_sen.get_a_driver(id));
+                            if (data == null) {  //todo 这里可以抽象成一个函数
+                                JOptionPane.showMessageDialog(null, "没有查到此司机", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                                idT.setText("");
+                                idT.setEditable(true);
+                            } else {
+                                Driver driver = data[0];
+                                nameT.setText(driver.getName());
+                                dateT.setText(ParseEntity.ParseDate2S(driver.getEnroll_date()));
+                                salaryT.setText(Double.toString(driver.getSalary()));
+                            }
                         } else {
                             setComp_visible(true);
-                            Car car = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id))[0];
-                            nameT.setText(car.getType());
-                            dateT.setText(ParseEntity.ParseDate2S(car.getPurchase_date()));
-                            salaryT.setText(Double.toString(car.getRent_rate()));
-                            maintainT.setText(ParseEntity.ParseDate2S((car.getMaintain_date())));
-                            licenseT.setText(car.getLicense());
-                            priceT.setText(Double.toString(car.getPrice()));
-                            mileT.setText(Double.toString(car.getMile()));
-                            hourT.setText(Double.toString(car.getWorking_time()));
+                            Car[] data = DataProcessing.searchCar(Search_SQL_sen.get_a_car(id));
+                            if (data == null) {
+                                JOptionPane.showMessageDialog(null, "没有查到此车辆", "未查到", JOptionPane.INFORMATION_MESSAGE);
+                                idT.setText("");
+                                idT.setEditable(true);
+                            } else {
+                                Car car = data[0];
+                                nameT.setText(car.getType());
+                                dateT.setText(ParseEntity.ParseDate2S(car.getPurchase_date()));
+                                salaryT.setText(Double.toString(car.getRent_rate()));
+                                maintainT.setText(ParseEntity.ParseDate2S((car.getMaintain_date())));
+                                licenseT.setText(car.getLicense());
+                                priceT.setText(Double.toString(car.getPrice()));
+                                mileT.setText(Double.toString(car.getMile()));
+                                hourT.setText(Double.toString(car.getWorking_time()));
+                            }
+
                         }
                     } catch (SQLException ep) {
                         ep.printStackTrace();
@@ -338,5 +382,42 @@ public final class Insert_Change_Item extends JFrame {
         return rlt;
     }
 
-    // 汽车的类型、牌照、购买日期、价格不可以修改 todo
+    private void windowLis(JFrame outer){
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                outer.setExtendedState(JFrame.NORMAL);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+    }
 }

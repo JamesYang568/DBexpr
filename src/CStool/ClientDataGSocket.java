@@ -1,68 +1,35 @@
 package CStool;
 
+import entity.Transaction;
+
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
 
-public class ClientDataGSocket extends Thread {
-    private final String ip = "127.0.0.1";
-    private DatagramSocket server;
-    private static ClientDataGSocket clientDataGSocket = null;
-    private ArrayList<DataMsgEntity> MsgArray;
+public class ClientDataGSocket {
+    private int id;
+    private DatagramSocket client;
+    private int port;
+    private InetAddress addr;
 
-    private ClientDataGSocket() {
-        InetAddress address = null;
+    ClientDataGSocket(int id) {
         try {
-            address = InetAddress.getByName(this.ip);
-            this.server = new DatagramSocket(1234, address);
-            this.MsgArray = new ArrayList<DataMsgEntity>(5) {
-                @Override
-                public DataMsgEntity get(int client_id) {
-                    for (DataMsgEntity dataMsgEntity : this) {
-                        if (dataMsgEntity.is_who(client_id))
-                            return dataMsgEntity;
-                    }
-                    return null;
-                }
-            }; //重载了get，根据id查而不是根据位置查
+            this.id = id;
+            this.port = 8888;
+            this.client = new DatagramSocket(this.port);
+            this.addr = InetAddress.getLocalHost();
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
     }
 
-    public static ClientDataGSocket getInstance() {
-        if (clientDataGSocket == null)
-            clientDataGSocket = new ClientDataGSocket();
-        return clientDataGSocket;
-    }
-
-    public void Run() {
-        while (true) {
-            byte[] receiveBytes = new byte[1024];
-            DatagramPacket receivePacket = new DatagramPacket(receiveBytes, receiveBytes.length);
-            try {
-                server.receive(receivePacket);
-                DataMsgEntity dataMsgEntity = new DataMsgEntity(receivePacket.getAddress().getHostAddress(), receivePacket.getPort());
-                dataMsgEntity.setTransaction(DataMsgEntity.getTransaction(receivePacket.getData()));
-                this.MsgArray.add(dataMsgEntity);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //外部粒度，耦合性极大
-    public void sendData(DataMsgEntity dataMsgEntity) {
-        byte[] sentBytes = dataMsgEntity.getBytes();
+    public void sendData(Transaction transaction) {
+        DataMsgEntity dataMsgEntity = new DataMsgEntity(this.id, transaction, this.addr.getHostAddress(), this.port);
+        byte[] data = dataMsgEntity.getBytes();
+        DatagramPacket MsgPacket = new DatagramPacket(data, data.length);
         try {
-            server.send(new DatagramPacket(sentBytes, sentBytes.length,
-                    InetAddress.getByName(dataMsgEntity.getIP()), dataMsgEntity.getPort()));  //todo 这里能否正确发出
+            client.send(MsgPacket);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public DataMsgEntity getMsg(int client_id) {
-        return this.MsgArray.get(client_id);
     }
 }

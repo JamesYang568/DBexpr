@@ -14,7 +14,9 @@ public class OtherStaff extends JPanel {
 		JButton SearchBnt = new JButton("查询信息");
 		SearchBnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new SearchALL();
+				ServerConsole serverConsole = (ServerConsole) getTopLevelAncestor();
+				new SearchALL(serverConsole);
+				serverConsole.setState(JFrame.ICONIFIED);
 				//TODO 最小化，最大化
 			}
 		});
@@ -25,7 +27,9 @@ public class OtherStaff extends JPanel {
 		JButton Insert_ChangeBnt = new JButton("增改车辆和司机");
 		Insert_ChangeBnt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Insert_Change_Item();
+				ServerConsole serverConsole = (ServerConsole) getTopLevelAncestor();
+				new Insert_Change_Item(serverConsole);
+				serverConsole.setState(JFrame.ICONIFIED);
 				//TODO 最小化，最大化
 			}
 		});
