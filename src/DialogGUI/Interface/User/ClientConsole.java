@@ -2,11 +2,13 @@ package DialogGUI.Interface.User;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class ClientConsole extends JFrame {
     private JPanel contentPane;
-    private JPanel FAPanel;// 查询已有业务
+    private transFind FAPanel;// 查询已有业务
     private JPanel SBPanel;// 提交放前所选业务
     private JPanel CAPanel;// 修改自己信息
     private JPanel DEPanel;// 注销自己信息
@@ -35,6 +37,18 @@ public class ClientConsole extends JFrame {
         tabbedPane.add("修改信息", C_A_Client());
         tabbedPane.add("注销账户信息",DeleteC());
         tabbedPane.setSelectedIndex(0);
+
+        ChangeListener changeListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+                int index = sourceTabbedPane.getSelectedIndex();
+                if (index == 2){ //刷新
+                    FAPanel.reloadData();
+                }
+            }
+        };
+
         setVisible(true);
     }
 

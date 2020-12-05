@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class transFind extends JPanel {
     private final JTable table;
+    private final int client_id;
 
     /**
      * Create the panel.
      */
     public transFind(int client_id) {
         setLayout(null);
-
+        this.client_id = client_id;
         JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 44, 815, 524);
         add(scrollPane);
@@ -33,5 +34,10 @@ public class transFind extends JPanel {
         add(titleL);
 
         setVisible(true);
+    }
+
+    public void reloadData() {
+        TableParse.setTransactionT(table, this.client_id);
+        validate();
     }
 }
