@@ -85,7 +85,7 @@ public class TableParse {
         // 设置居中
         DefaultTableCellRenderer render = new DefaultTableCellRenderer();
         render.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             table.getColumn(table.getModel().getColumnName(i)).setCellRenderer(render);
         }
     }

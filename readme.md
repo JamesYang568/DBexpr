@@ -54,34 +54,6 @@ https://blog.csdn.net/way_ping_li/article/details/8039412
 
 用户可以注销自己
 
-     public static Entity search_entity(String cls, int id) {
-         String entity_name;
-         if (cls.equalsIgnoreCase("driver"))
-             entity_name = "driver";
-         else if (cls.equalsIgnoreCase("Car"))
-             entity_name = "car";
-         else
-             entity_name = "client";
-         try {
-             Statement statement;
-             statement = connection.createStatement(
-                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
- 
-             String sql = "select * from " + entity_name + "_info where id =" + id;
-             //entity_name = entity_name.substring(0, 1).toUpperCase() + entity_name.substring(1);
-             //获得用户信息
-             ResultSet resultSet = statement.executeQuery(sql);
-             //Class<?> c = Class.forName("entity." + entity_name);
-             //Entity obj = (Entity)c.newInstance();
- 
-             String username = resultSet.getString("username");
-             String pwd = resultSet.getString("password");
-             String role = resultSet.getString("role");
- 
-         } catch (SQLException e) {
-             e.printStackTrace();
-         }
-     }
      
 整体程序分为四个模块：
 
@@ -107,5 +79,7 @@ DialogGUI.Interface是图形界面的主要模块，其中包括了服务端、�
 如果插入更新错误也做出对应的提示
 
 修改了表格不能及时更新的错误
+
+完成了提交业务信息、结束业务的核心功能
 
 打包  https://blog.csdn.net/weixin_38310965/article/details/80392767

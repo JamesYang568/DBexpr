@@ -3,12 +3,14 @@ package DialogGUI.Interface.User;
 import DialogGUI.Help.InputParse;
 import DialogGUI.Help.TableParse;
 import entity.Transaction;
+import handle.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 
 public class transSubmit extends JPanel {
     private final JTextField dateT;
@@ -100,12 +102,23 @@ public class transSubmit extends JPanel {
                     String local = localT.getText();
                     double miles = Double.parseDouble(milesT.getText());
                     double times = Double.parseDouble(timesT.getText());
-                    String stringcar_id = table.getValueAt(table.getSelectedRow(), 0).toString();// 点击表格获得car_id
-                    int car_id = Integer.parseInt(InputParse.parseID(stringcar_id));
+                    int car_id = Integer.parseInt(
+                            InputParse.parseID(table.getValueAt(table.getSelectedRow(), 0).toString()));
+                    assert date != null;
                     Transaction transaction = new Transaction(Date.valueOf(date), car_id, local, miles, times, c_id);
+                    boolean flag = DataProcessing.insertTransaction(transaction);
+                    DataProcessing.update(Update_SQL_sen.car_set_available(car_id, 0));
+                    if (flag) {
+                        Transaction[] data = DataProcessing.searchTransaction(Search_SQL_sen.get_all_TR_by_client(c_id, car_id));
+                        if (data != null)
+                            JOptionPane.showMessageDialog(
+                                    null, "您的业务号是" + data[0].getId(), "成功申请业务", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } catch (IllegalArgumentException ep) {
                     ep.printStackTrace();
                     JOptionPane.showMessageDialog(null, "日期格式错误！", "出错了", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
                 reset();
             }

@@ -10,8 +10,10 @@ public class ClientConsole extends JFrame {
     private JPanel contentPane;
     private transFind FAPanel;// 查询已有业务
     private JPanel SBPanel;// 提交放前所选业务
+    private JPanel ENPanel;// 手动结束业务
     private JPanel CAPanel;// 修改自己信息
     private JPanel DEPanel;// 注销自己信息
+
     private int client_id;
 
     /**
@@ -33,6 +35,7 @@ public class ClientConsole extends JFrame {
         contentPane.add(tabbedPane);
 
         tabbedPane.add("选择业务", Submit());
+        tabbedPane.add("结束业务",Endtran());
         tabbedPane.add("查询已有业务", FindAvailable());
         tabbedPane.add("修改信息", C_A_Client());
         tabbedPane.add("注销账户信息",DeleteC());
@@ -70,5 +73,9 @@ public class ClientConsole extends JFrame {
     private JPanel DeleteC() {
     	this.DEPanel=new DeleteClient();
     	return this.DEPanel;
+    }
+    private JPanel Endtran() {
+    	this.ENPanel=new transEnd();
+    	return this.ENPanel;
     }
 }

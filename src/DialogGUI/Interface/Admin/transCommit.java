@@ -2,10 +2,7 @@ package DialogGUI.Interface.Admin;
 
 import DialogGUI.Help.TableParse;
 import entity.Driver;
-import entity.Transaction;
-import handle.DataProcessing;
-import handle.Search_SQL_sen;
-import handle.Update_SQL_sen;
+import handle.*;
 
 import javax.swing.*;
 import java.awt.Font;
@@ -42,15 +39,19 @@ public class transCommit extends JPanel {
         JButton createBnt = new JButton("提交业务");
         createBnt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int driver_id = comboBox.getSelectedIndex();
-                int trans_id = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
                 try {
+                    int driver_id = comboBox.getSelectedIndex();
+                    String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    if (id.equals("")) //如果没有数据即使点击也没有用
+                        return;
+                    int trans_id = Integer.parseInt(id);
                     DataProcessing.update(Update_SQL_sen.transaction_invalid(trans_id, driver_id));
                     DataProcessing.update(Update_SQL_sen.driver_set_available(driver_id, 0));
                     reload();
                     validate();
                 } catch (SQLException er) {
                     er.printStackTrace();
+                } catch (ArrayIndexOutOfBoundsException ignored) { //处理空表情况
                 }
             }
         });

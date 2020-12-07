@@ -123,13 +123,13 @@ public class UpdateClient extends JPanel {
 					flag = DataProcessing.updateClient(client);
 					if (flag) {
 						DataProcessing.update(Update_SQL_sen.client_password(id, password));
+						JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						title.setText("修改失败，请重新尝试");
 					}
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(null, "修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 				reset();
 			}
 		});
