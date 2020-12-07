@@ -1,6 +1,5 @@
 package DialogGUI.Interface.Admin;
 
-import CStool.ServerDataGSocket;
 import CStool.ServerPlug;
 import DialogGUI.Interface.InsertClient;
 import DialogGUI.Interface.SelectSpaceitem;
@@ -28,7 +27,7 @@ public class ServerConsole extends JFrame {
     //private ServerDataGSocket server;
 
     /**
-     * Create the frame.
+     * Create the frame 1500*900
      */
     public static ServerConsole getInstance() {
         if (instance == null) {
@@ -41,7 +40,7 @@ public class ServerConsole extends JFrame {
         //this.server = ServerDataGSocket.getInstance();
         setTitle("管理员");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 670, 772);
+        setBounds(100, 100, 1502, 902);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -94,7 +93,7 @@ public class ServerConsole extends JFrame {
                 changeClient.setVisible(false);
             }
         });
-        addclientBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        addclientBnt.setFont(new Font("宋体", Font.PLAIN, 35));
         selectPanel.add(addclientBnt);
 
         JLabel blod = new JLabel("           ");
@@ -112,7 +111,7 @@ public class ServerConsole extends JFrame {
                 changeClient.setVisible(true);
             }
         });
-        chaclientBnt.setFont(new Font("宋体", Font.PLAIN, 26));
+        chaclientBnt.setFont(new Font("宋体", Font.PLAIN, 35));
         selectPanel.add(chaclientBnt);
 
         return this.CAPanel;

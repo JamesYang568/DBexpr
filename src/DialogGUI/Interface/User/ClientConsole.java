@@ -21,7 +21,7 @@ public class ClientConsole extends JFrame {
         this.client_id = id;
         setTitle("客户端");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 853, 666);
+        setBounds(100, 100, 1500, 900);
         contentPane = new JPanel();
         contentPane.setToolTipText("");
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

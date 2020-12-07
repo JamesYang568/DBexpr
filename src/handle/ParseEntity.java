@@ -101,6 +101,30 @@ public class ParseEntity {
         return vector;
     }
 
+    public Vector ParseTransaction() {
+        Transaction[] data = new Transaction[0];
+        try {
+            data = DataProcessing.searchTransaction(Search_SQL_sen.get_available_TR());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Vector vector = new Vector();
+        if (data == null)
+            data = new Transaction[0];
+        for (Transaction transaction : data) {
+            Vector temp = new Vector();
+            temp.add(transaction.getId());
+            temp.add(ParseDate2S(transaction.getDate()));
+            temp.add(transaction.getCar_id());
+            temp.add(transaction.getLocal());
+            temp.add(transaction.getMiles());
+            temp.add(transaction.getTimes());
+            temp.add(transaction.getClient_id());
+            vector.add(temp);
+        }
+        return vector;
+    }
+
     public static Date ParseDate2D(java.util.Date date) { // date转换为Java date
         return new Date(date.getTime());
     }

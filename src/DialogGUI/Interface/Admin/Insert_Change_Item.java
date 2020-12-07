@@ -44,7 +44,7 @@ public final class Insert_Change_Item extends JFrame {
     public Insert_Change_Item(JFrame outer) {
         setTitle("增改资源");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 819, 600);
+        setBounds(100, 100, 1455, 859);
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,7 +52,7 @@ public final class Insert_Change_Item extends JFrame {
 
         JLabel titleL = new JLabel("增改资源");
         titleL.setHorizontalAlignment(SwingConstants.CENTER);
-        titleL.setFont(new Font("宋体", Font.BOLD, 32));
+        titleL.setFont(new Font("宋体", Font.BOLD, 45));
         contentPane.add(titleL, BorderLayout.NORTH);
 
         JPanel MP = new JPanel();
@@ -79,8 +79,8 @@ public final class Insert_Change_Item extends JFrame {
         });
         comboBox.setModel(new DefaultComboBoxModel(new String[]{"司机", "汽车"}));
         comboBox.setSelectedIndex(select);
-        comboBox.setFont(new Font("宋体", Font.PLAIN, 22));
-        comboBox.setBounds(74, 51, 153, 41);
+        comboBox.setFont(new Font("宋体", Font.PLAIN, 35));
+        comboBox.setBounds(356, 57, 228, 52);
         MP.add(comboBox);
 
         //添加窗口响应
@@ -90,114 +90,114 @@ public final class Insert_Change_Item extends JFrame {
         {
             JLabel selectItem = new JLabel("选择资源类型");
             selectItem.setHorizontalAlignment(SwingConstants.CENTER);
-            selectItem.setFont(new Font("宋体", Font.PLAIN, 22));
-            selectItem.setBounds(74, 15, 153, 34);
+            selectItem.setFont(new Font("宋体", Font.PLAIN, 35));
+            selectItem.setBounds(114, 57, 228, 52);
             MP.add(selectItem);
 
             JLabel idL = new JLabel("ID号");
-            idL.setFont(new Font("宋体", Font.PLAIN, 22));
-            idL.setBounds(310, 51, 91, 41);
+            idL.setFont(new Font("宋体", Font.PLAIN, 35));
+            idL.setBounds(647, 57, 144, 52);
             MP.add(idL);
 
             idT = new JTextField();
-            idT.setFont(new Font("宋体", Font.PLAIN, 22));
-            idT.setBounds(416, 51, 139, 41);
+            idT.setFont(new Font("宋体", Font.PLAIN, 35));
+            idT.setBounds(806, 55, 238, 58);
             MP.add(idT);
             idT.setColumns(10);
 
             nameL = new JLabel("姓名");
-            nameL.setFont(new Font("宋体", Font.PLAIN, 22));
-            nameL.setBounds(57, 124, 91, 41);
+            nameL.setFont(new Font("宋体", Font.PLAIN, 35));
+            nameL.setBounds(156, 165, 144, 52);
             MP.add(nameL);
 
             dateL = new JLabel("参加工作时间"); // TODO 这里不能直接输入格式问题
-            dateL.setFont(new Font("宋体", Font.PLAIN, 22));
-            dateL.setBounds(57, 201, 139, 41);
+            dateL.setFont(new Font("宋体", Font.PLAIN, 35));
+            dateL.setBounds(117, 276, 222, 52);
             MP.add(dateL);
 
             salaryL = new JLabel("工资");
-            salaryL.setFont(new Font("宋体", Font.PLAIN, 22));
-            salaryL.setBounds(57, 284, 91, 41);
+            salaryL.setFont(new Font("宋体", Font.PLAIN, 35));
+            salaryL.setBounds(156, 398, 144, 52);
             MP.add(salaryL);
 
             priceL = new JLabel("价格");
-            priceL.setFont(new Font("宋体", Font.PLAIN, 22));
-            priceL.setBounds(57, 369, 91, 41);
+            priceL.setFont(new Font("宋体", Font.PLAIN, 35));
+            priceL.setBounds(156, 506, 144, 52);
             MP.add(priceL);
 
             licenseL = new JLabel("牌照号");
-            licenseL.setFont(new Font("宋体", Font.PLAIN, 22));
-            licenseL.setBounds(417, 124, 91, 41);
+            licenseL.setFont(new Font("宋体", Font.PLAIN, 35));
+            licenseL.setBounds(647, 165, 144, 52);
             MP.add(licenseL);
 
             mileL = new JLabel("运行公里");
-            mileL.setFont(new Font("宋体", Font.PLAIN, 22));
-            mileL.setBounds(417, 191, 91, 41);
+            mileL.setFont(new Font("宋体", Font.PLAIN, 35));
+            mileL.setBounds(647, 276, 144, 52);
             MP.add(mileL);
 
             maintainL = new JLabel("维修日期");
-            maintainL.setFont(new Font("宋体", Font.PLAIN, 22));
-            maintainL.setBounds(417, 274, 91, 41);
+            maintainL.setFont(new Font("宋体", Font.PLAIN, 35));
+            maintainL.setBounds(647, 398, 144, 52);
             MP.add(maintainL);
 
             hourL = new JLabel("运行小时");
-            hourL.setFont(new Font("宋体", Font.PLAIN, 22));
-            hourL.setBounds(417, 369, 91, 41);
+            hourL.setFont(new Font("宋体", Font.PLAIN, 35));
+            hourL.setBounds(647, 506, 144, 52);
             MP.add(hourL);
 
             nameT = new JTextField();
-            nameT.setFont(new Font("宋体", Font.PLAIN, 22));
+            nameT.setFont(new Font("宋体", Font.PLAIN, 35));
             nameT.setColumns(10);
-            nameT.setBounds(163, 124, 139, 41);
+            nameT.setBounds(351, 163, 238, 58);
             MP.add(nameT);
 
             dateT = new JTextField();
-            dateT.setFont(new Font("宋体", Font.PLAIN, 22));
+            dateT.setFont(new Font("宋体", Font.PLAIN, 35));
             dateT.setColumns(10);
-            dateT.setBounds(200, 201, 170, 41);
+            dateT.setBounds(351, 270, 238, 58);
             MP.add(dateT);
 
             salaryT = new JTextField();
-            salaryT.setFont(new Font("宋体", Font.PLAIN, 22));
+            salaryT.setFont(new Font("宋体", Font.PLAIN, 35));
             salaryT.setColumns(10);
-            salaryT.setBounds(163, 284, 139, 41);
+            salaryT.setBounds(351, 396, 238, 58);
             MP.add(salaryT);
 
             priceT = new JTextField();
-            priceT.setFont(new Font("宋体", Font.PLAIN, 22));
+            priceT.setFont(new Font("宋体", Font.PLAIN, 35));
             priceT.setColumns(10);
-            priceT.setBounds(163, 369, 139, 41);
+            priceT.setBounds(351, 504, 238, 58);
             MP.add(priceT);
 
             licenseT = new JTextField();
-            licenseT.setFont(new Font("宋体", Font.PLAIN, 22));
+            licenseT.setFont(new Font("宋体", Font.PLAIN, 35));
             licenseT.setColumns(10);
-            licenseT.setBounds(554, 122, 139, 41);
+            licenseT.setBounds(806, 163, 238, 58);
             MP.add(licenseT);
 
             mileT = new JTextField();
-            mileT.setFont(new Font("宋体", Font.PLAIN, 22));
+            mileT.setFont(new Font("宋体", Font.PLAIN, 35));
             mileT.setColumns(10);
-            mileT.setBounds(554, 191, 139, 41);
+            mileT.setBounds(806, 274, 238, 58);
             MP.add(mileT);
 
             maintainT = new JTextField();
-            maintainT.setFont(new Font("宋体", Font.PLAIN, 22));
+            maintainT.setFont(new Font("宋体", Font.PLAIN, 35));
             maintainT.setColumns(10);
-            maintainT.setBounds(554, 274, 176, 41);
+            maintainT.setBounds(806, 396, 238, 58);
             MP.add(maintainT);
 
             hourT = new JTextField();
-            hourT.setFont(new Font("宋体", Font.PLAIN, 22));
+            hourT.setFont(new Font("宋体", Font.PLAIN, 35));
             hourT.setColumns(10);
-            hourT.setBounds(554, 369, 139, 41);
+            hourT.setBounds(806, 504, 238, 58);
             MP.add(hourT);
         }
         setComp_visible(false);
 
         JButton FBnt = new JButton("查找");
-        FBnt.setFont(new Font("宋体", Font.PLAIN, 20));
-        FBnt.setBounds(608, 52, 139, 41);
+        FBnt.setFont(new Font("宋体", Font.PLAIN, 40));
+        FBnt.setBounds(1147, 25, 180, 112);
         MP.add(FBnt);
 
         JButton CommitBnt = new JButton("确定");
@@ -278,8 +278,8 @@ public final class Insert_Change_Item extends JFrame {
                 }
             }
         });
-        CommitBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        CommitBnt.setBounds(323, 441, 139, 41);
+        CommitBnt.setFont(new Font("宋体", Font.PLAIN, 45));
+        CommitBnt.setBounds(1178, 582, 180, 112);
         MP.add(CommitBnt);
 
         FBnt.addActionListener(new ActionListener() {// 说明要修改  解释请看JOptionPane.showMessageDialog 中文部分

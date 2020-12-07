@@ -16,21 +16,21 @@ public class transFind extends JPanel {
         setLayout(null);
         this.client_id = client_id;
         JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(0, 44, 815, 524);
+        scrollPane.setBounds(0, 71, 1482, 809);
         add(scrollPane);
 
         table = new JTable();
-        table.setFont(new Font("宋体", Font.PLAIN, 22));
+        table.setFont(new Font("宋体", Font.PLAIN, 35));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);//调整列宽
-        table.setRowHeight(30);
-        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
+        table.setRowHeight(60);
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 35));
         scrollPane.setViewportView(table);
         TableParse.setTransactionT(table, client_id);
 
         JLabel titleL = new JLabel("查询业务");
         titleL.setHorizontalAlignment(SwingConstants.CENTER);
-        titleL.setFont(new Font("宋体", Font.PLAIN, 30));
-        titleL.setBounds(279, 0, 238, 48);
+        titleL.setFont(new Font("宋体", Font.PLAIN, 45));
+        titleL.setBounds(552, 0, 356, 73);
         add(titleL);
 
         setVisible(true);

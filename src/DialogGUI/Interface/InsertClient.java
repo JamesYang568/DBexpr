@@ -31,92 +31,92 @@ public class InsertClient extends JPanel {
     public InsertClient(int flag) {
         setLayout(null);
 
-        JLabel title = new JLabel("添加客户");
+        JLabel title = new JLabel("增加客户");
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("Dialog", Font.BOLD, 26));
+        title.setFont(new Font("Dialog", Font.BOLD, 45));
         title.setEnabled(true);
         title.setVerticalAlignment(SwingConstants.CENTER);
-        title.setBounds(64, 15, 508, 41);
+        title.setBounds(483, 0, 508, 67);
         add(title);
 
         JLabel lpassword = new JLabel("密码");
         lpassword.setHorizontalAlignment(SwingConstants.CENTER);
-        lpassword.setFont(new Font("宋体", Font.PLAIN, 22));
-        lpassword.setBounds(82, 136, 133, 41);
+        lpassword.setFont(new Font("宋体", Font.PLAIN, 35));
+        lpassword.setBounds(311, 157, 212, 66);
         add(lpassword);
 
         JLabel lid = new JLabel("输入客户号");
-        lid.setFont(new Font("宋体", Font.PLAIN, 22));
-        lid.setBounds(82, 80, 133, 41);
+        lid.setFont(new Font("宋体", Font.PLAIN, 35));
+        lid.setBounds(288, 80, 212, 66);
         add(lid);
 
         JLabel lname = new JLabel("客户姓名");
-        lname.setFont(new Font("宋体", Font.PLAIN, 22));
-        lname.setBounds(82, 199, 133, 41);
+        lname.setFont(new Font("宋体", Font.PLAIN, 35));
+        lname.setBounds(311, 236, 212, 66);
         add(lname);
 
         JLabel lcompany = new JLabel("客户单位");
-        lcompany.setFont(new Font("宋体", Font.PLAIN, 22));
-        lcompany.setBounds(82, 255, 133, 41);
+        lcompany.setFont(new Font("宋体", Font.PLAIN, 35));
+        lcompany.setBounds(311, 307, 212, 66);
         add(lcompany);
 
         JLabel ltel = new JLabel("客户电话");
-        ltel.setFont(new Font("宋体", Font.PLAIN, 22));
-        ltel.setBounds(82, 325, 133, 41);
+        ltel.setFont(new Font("宋体", Font.PLAIN, 35));
+        ltel.setBounds(311, 386, 212, 66);
         add(ltel);
 
         JLabel laddr = new JLabel("客户地址");
-        laddr.setFont(new Font("宋体", Font.PLAIN, 22));
-        laddr.setBounds(82, 394, 133, 41);
+        laddr.setFont(new Font("宋体", Font.PLAIN, 35));
+        laddr.setBounds(311, 465, 212, 66);
         add(laddr);
 
         JLabel lzipcode = new JLabel("邮编");
         lzipcode.setHorizontalAlignment(SwingConstants.CENTER);
-        lzipcode.setFont(new Font("宋体", Font.PLAIN, 22));
-        lzipcode.setBounds(82, 460, 133, 41);
+        lzipcode.setFont(new Font("宋体", Font.PLAIN, 35));
+        lzipcode.setBounds(311, 538, 212, 66);
         add(lzipcode);
 
         //文本框初始化
         {
             idT = new JTextField();
-            idT.setFont(new Font("宋体", Font.PLAIN, 22));
-            idT.setBounds(283, 80, 174, 41);
+            idT.setFont(new Font("宋体", Font.PLAIN, 35));
+            idT.setBounds(654, 85, 466, 53);
             add(idT);
             idT.setColumns(15);
 
             passwordT = new JPasswordField();
-            passwordT.setFont(new Font("宋体", Font.PLAIN, 20));
-            passwordT.setBounds(283, 139, 174, 41);
+            passwordT.setFont(new Font("宋体", Font.PLAIN, 35));
+            passwordT.setBounds(654, 164, 466, 53);
             add(passwordT);
 
             nameT = new JTextField();
-            nameT.setFont(new Font("宋体", Font.PLAIN, 22));
+            nameT.setFont(new Font("宋体", Font.PLAIN, 35));
             nameT.setColumns(15);
-            nameT.setBounds(283, 199, 174, 41);
+            nameT.setBounds(654, 243, 466, 53);
             add(nameT);
 
             companyT = new JTextField();
-            companyT.setFont(new Font("宋体", Font.PLAIN, 22));
+            companyT.setFont(new Font("宋体", Font.PLAIN, 35));
             companyT.setColumns(15);
-            companyT.setBounds(283, 255, 313, 41);
+            companyT.setBounds(654, 322, 466, 53);
             add(companyT);
 
             telT = new JTextField();
-            telT.setFont(new Font("宋体", Font.PLAIN, 22));
+            telT.setFont(new Font("宋体", Font.PLAIN, 35));
             telT.setColumns(15);
-            telT.setBounds(283, 325, 212, 41);
+            telT.setBounds(654, 399, 466, 53);
             add(telT);
 
             addrT = new JTextField();
-            addrT.setFont(new Font("宋体", Font.PLAIN, 22));
+            addrT.setFont(new Font("宋体", Font.PLAIN, 35));
             addrT.setColumns(30);
-            addrT.setBounds(283, 394, 313, 41);
+            addrT.setBounds(654, 472, 466, 53);
             add(addrT);
 
             zipcodeT = new JTextField();
-            zipcodeT.setFont(new Font("宋体", Font.PLAIN, 22));
+            zipcodeT.setFont(new Font("宋体", Font.PLAIN, 35));
             zipcodeT.setColumns(15);
-            zipcodeT.setBounds(283, 460, 174, 41);
+            zipcodeT.setBounds(654, 551, 466, 53);
             add(zipcodeT);
         }
 
@@ -146,8 +146,8 @@ public class InsertClient extends JPanel {
                 JOptionPane.showMessageDialog(null, "成功保存", "提示", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        SubBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        SubBnt.setBounds(246, 521, 142, 44);
+        SubBnt.setFont(new Font("宋体", Font.PLAIN, 50));
+        SubBnt.setBounds(465, 644, 198, 103);
         add(SubBnt);
 
         JButton CanBnt = new JButton("清空");
@@ -156,8 +156,8 @@ public class InsertClient extends JPanel {
                 reset();
             }
         });
-        CanBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        CanBnt.setBounds(491, 521, 109, 44);
+        CanBnt.setFont(new Font("宋体", Font.PLAIN, 50));
+        CanBnt.setBounds(1030, 644, 198, 103);
         add(CanBnt);
     }
 

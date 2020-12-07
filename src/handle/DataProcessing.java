@@ -22,8 +22,8 @@ public class DataProcessing {
 
     public static void connectToBD() {
         // connect to database
-        String driverName = "com.mysql.jdbc.Driver";           // 加载数据库驱动类
-        String url = "jdbc:mysql://localhost:3306/rentDB"
+        String driverName = "com.mysql.cj.jdbc.Driver";           // 加载数据库驱动类
+        String url = "jdbc:mysql://localhost:3306/rentdb"
                 + "?useSSL=FALSE&&serverTimezone=UTC&&useUnicode=true&characterEncoding=utf8";
         // 声明数据库的URL以及格式
         String user = "root";                     // 数据库用户

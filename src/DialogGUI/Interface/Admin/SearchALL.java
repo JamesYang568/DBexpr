@@ -25,7 +25,7 @@ public class SearchALL extends JFrame {
     public SearchALL(JFrame outer) {
         setTitle("查询信息");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 1013, 714);
+        setBounds(100, 100, 1451, 850);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -33,7 +33,7 @@ public class SearchALL extends JFrame {
 
         JLabel titleL = new JLabel("查询某资源所有信息");
         titleL.setHorizontalAlignment(SwingConstants.CENTER);
-        titleL.setFont(new Font("宋体", Font.BOLD, 32));
+        titleL.setFont(new Font("宋体", Font.BOLD, 45));
         contentPane.add(titleL, BorderLayout.NORTH);
 
         JPanel MP = new JPanel();
@@ -46,8 +46,8 @@ public class SearchALL extends JFrame {
                 TableParse.setCarT(table);
             }
         });
-        CarBnt.setFont(new Font("宋体", Font.PLAIN, 24));
-        CarBnt.setBounds(145, 32, 130, 48);
+        CarBnt.setFont(new Font("宋体", Font.PLAIN, 45));
+        CarBnt.setBounds(238, 13, 156, 80);
         MP.add(CarBnt);
 
         JButton DriverBnt = new JButton("司机");
@@ -56,8 +56,8 @@ public class SearchALL extends JFrame {
                 TableParse.setDriverT(table);
             }
         });
-        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 24));
-        DriverBnt.setBounds(430, 32, 130, 48);
+        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 45));
+        DriverBnt.setBounds(632, 13, 156, 80);
         MP.add(DriverBnt);
 
         JButton ClientBnt = new JButton("顾客");
@@ -66,20 +66,20 @@ public class SearchALL extends JFrame {
                 TableParse.setClientT(table);
             }
         });
-        ClientBnt.setFont(new Font("宋体", Font.PLAIN, 24));
-        ClientBnt.setBounds(711, 32, 130, 48);
+        ClientBnt.setFont(new Font("宋体", Font.PLAIN, 45));
+        ClientBnt.setBounds(1026, 13, 156, 80);
         MP.add(ClientBnt);
 
         table = new JTable();
-        table.setFont(new Font("宋体", Font.PLAIN, 22));
+        table.setFont(new Font("宋体", Font.PLAIN, 35));
         table.setBounds(36, 110, 904, 470);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-        table.setRowHeight(30);
+        table.setRowHeight(60);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 35));
         JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setSize(951, 501);
-        scrollPane.setLocation(15, 95);
+        scrollPane.setSize(1409, 646);
+        scrollPane.setLocation(14, 95);
         scrollPane.setViewportView(table);
         MP.add(scrollPane);
 

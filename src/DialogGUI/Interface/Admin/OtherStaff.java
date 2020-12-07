@@ -20,8 +20,8 @@ public class OtherStaff extends JPanel {
 				//TODO 最小化，最大化
 			}
 		});
-		SearchBnt.setFont(new Font("宋体", Font.PLAIN, 28));
-		SearchBnt.setBounds(134, 100, 363, 70);
+		SearchBnt.setFont(new Font("宋体", Font.PLAIN, 65));
+		SearchBnt.setBounds(199, 285, 516, 263);
 		add(SearchBnt);
 		
 		JButton Insert_ChangeBnt = new JButton("增改车辆和司机");
@@ -33,8 +33,8 @@ public class OtherStaff extends JPanel {
 				//TODO 最小化，最大化
 			}
 		});
-		Insert_ChangeBnt.setFont(new Font("宋体", Font.PLAIN, 28));
-		Insert_ChangeBnt.setBounds(134, 357, 363, 70);
+		Insert_ChangeBnt.setFont(new Font("宋体", Font.PLAIN, 65));
+		Insert_ChangeBnt.setBounds(782, 285, 516, 263);
 		add(Insert_ChangeBnt);
 
 	}

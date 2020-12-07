@@ -18,77 +18,77 @@ public class transSubmit extends JPanel {
     private final JTextField milesT;
 
     /**
-     * Create the panel.
+     * Create the panel   1450*880
      */
     public transSubmit(int c_id) {
         setLayout(null);
 
         JLabel title = new JLabel("选择业务界面");
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("宋体", Font.BOLD, 30));
-        title.setBounds(298, 30, 223, 44);
+        title.setFont(new Font("宋体", Font.BOLD, 45));
+        title.setBounds(558, 13, 364, 78);
         add(title);
 
         JLabel dateL = new JLabel("开始时间");
-        dateL.setFont(new Font("宋体", Font.PLAIN, 22));
-        dateL.setBounds(28, 384, 110, 34);
+        dateL.setFont(new Font("宋体", Font.PLAIN, 35));
+        dateL.setBounds(14, 642, 168, 59);
         add(dateL);
 
         JLabel localL = new JLabel("地点");
-        localL.setFont(new Font("宋体", Font.PLAIN, 22));
-        localL.setBounds(372, 383, 102, 36);
+        localL.setFont(new Font("宋体", Font.PLAIN, 35));
+        localL.setBounds(713, 642, 136, 59);
         add(localL);
 
         JLabel timesL = new JLabel("行驶时间");
-        timesL.setFont(new Font("宋体", Font.PLAIN, 22));
-        timesL.setBounds(372, 437, 102, 31);
+        timesL.setFont(new Font("宋体", Font.PLAIN, 35));
+        timesL.setBounds(643, 736, 168, 59);
         add(timesL);
 
         JLabel milesL = new JLabel("往返里程");
-        milesL.setFont(new Font("宋体", Font.PLAIN, 22));
-        milesL.setBounds(28, 435, 102, 34);
+        milesL.setFont(new Font("宋体", Font.PLAIN, 35));
+        milesL.setBounds(14, 736, 168, 59);
         add(milesL);
 
         {
             dateT = new JTextField();
-            dateT.setFont(new Font("宋体", Font.PLAIN, 22));
-            dateT.setBounds(152, 386, 125, 30);
+            dateT.setFont(new Font("宋体", Font.PLAIN, 35));
+            dateT.setBounds(196, 642, 314, 52);
             add(dateT);
             dateT.setColumns(10);
 
             localT = new JTextField();
-            localT.setFont(new Font("宋体", Font.PLAIN, 22));
-            localT.setBounds(490, 386, 125, 30);
+            localT.setFont(new Font("宋体", Font.PLAIN, 35));
+            localT.setBounds(847, 646, 314, 52);
             add(localT);
             localT.setColumns(10);
 
             timesT = new JTextField();
-            timesT.setFont(new Font("宋体", Font.PLAIN, 22));
-            timesT.setBounds(490, 437, 125, 30);
+            timesT.setFont(new Font("宋体", Font.PLAIN, 35));
+            timesT.setBounds(847, 739, 314, 54);
             add(timesT);
             timesT.setColumns(10);
 
             milesT = new JTextField();
-            milesT.setFont(new Font("宋体", Font.PLAIN, 22));
-            milesT.setBounds(152, 437, 127, 30);
+            milesT.setFont(new Font("宋体", Font.PLAIN, 35));
+            milesT.setBounds(196, 740, 314, 52);
             add(milesT);
             milesT.setColumns(10);
         }
 
         JPanel CarP = new JPanel();
-        CarP.setBounds(0, 93, 814, 255);
+        CarP.setBounds(0, 93, 1450, 536);
         add(CarP);
         CarP.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(0, 0, 809, 255);
+        scrollPane.setBounds(0, 0, 1450, 536);
         CarP.add(scrollPane);
 
         table = new JTable();
-        table.setFont(new Font("宋体", Font.PLAIN, 22));
+        table.setFont(new Font("宋体", Font.PLAIN, 35));
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);// 调整列宽
-        table.setRowHeight(30);
-        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
+        table.setRowHeight(60);
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 35));
         TableParse.setCarT(table);
         scrollPane.setViewportView(table);
 
@@ -110,8 +110,8 @@ public class transSubmit extends JPanel {
                 reset();
             }
         });
-        submitBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        submitBnt.setBounds(479, 514, 136, 42);
+        submitBnt.setFont(new Font("宋体", Font.PLAIN, 60));
+        submitBnt.setBounds(1206, 646, 205, 155);
         add(submitBnt);
         setVisible(true);
     }

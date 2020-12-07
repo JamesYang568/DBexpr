@@ -36,7 +36,7 @@ public class welcome extends JFrame {
     public welcome() {
         setTitle("汽车租赁系统");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 655, 433);
+        setBounds(100, 100, 908, 621);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
@@ -45,7 +45,7 @@ public class welcome extends JFrame {
         JLabel WarmWelCome = new JLabel("欢迎使用中兴公司车辆租赁系统");
         WarmWelCome.setForeground(Color.DARK_GRAY);
         WarmWelCome.setHorizontalAlignment(SwingConstants.CENTER);
-        WarmWelCome.setFont(new Font("宋体", Font.PLAIN, 32));
+        WarmWelCome.setFont(new Font("宋体", Font.PLAIN, 36));
         contentPane.add(WarmWelCome, BorderLayout.NORTH);
 
         JPanel panel = new JPanel();
@@ -59,8 +59,8 @@ public class welcome extends JFrame {
                 dispose();
             }
         });
-        signinB.setBounds(236, 98, 145, 52);
-        signinB.setFont(new Font("宋体", Font.PLAIN, 26));
+        signinB.setBounds(116, 208, 232, 114);
+        signinB.setFont(new Font("宋体", Font.PLAIN, 50));
         panel.add(signinB);
 
         JButton registerB = new JButton("注册");
@@ -71,8 +71,8 @@ public class welcome extends JFrame {
                 setState(JFrame.ICONIFIED);
             }
         });
-        registerB.setFont(new Font("宋体", Font.PLAIN, 26));
-        registerB.setBounds(236, 178, 145, 52);
+        registerB.setFont(new Font("宋体", Font.PLAIN, 50));
+        registerB.setBounds(530, 208, 232, 114);
         panel.add(registerB);
         setVisible(true);
     }

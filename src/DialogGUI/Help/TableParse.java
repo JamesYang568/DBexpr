@@ -73,4 +73,20 @@ public class TableParse {
             table.getColumn(table.getModel().getColumnName(i)).setCellRenderer(render);
         }
     }
+
+    public static void setTransactionT(JTable table) {
+        Vector columnNames = new Vector(Arrays.asList("ID号", "日期", "牌照号", "地点", "往返里程", "行驶时间", "客户号"));
+        DefaultTableModel defaultModel = new DefaultTableModel(parseEntity.ParseTransaction(), columnNames) {
+            public boolean isCellEditable(int row, int column) {// 表格不允许被编辑
+                return false;
+            }
+        };
+        table.setModel(defaultModel);
+        // 设置居中
+        DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+        render.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < 8; i++) {
+            table.getColumn(table.getModel().getColumnName(i)).setCellRenderer(render);
+        }
+    }
 }

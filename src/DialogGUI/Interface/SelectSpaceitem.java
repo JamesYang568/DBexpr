@@ -22,19 +22,19 @@ public class SelectSpaceitem extends JPanel {
 
         JPanel titleP = new JPanel();
         titleP.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-        titleP.setBounds(0, 0, 627, 84);
+        titleP.setBounds(0, 0, 1464, 84);
         add(titleP);
         titleP.setLayout(null);
 
-        JLabel title = new JLabel("查询");
+        JLabel title = new JLabel("空闲资源");
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setBounds(268, 15, 89, 54);
-        title.setFont(new Font("宋体", Font.BOLD, 30));
+        title.setBounds(633, 0, 240, 84);
+        title.setFont(new Font("宋体", Font.BOLD, 50));
         titleP.add(title);
 
         JPanel SelectP = new JPanel();
         SelectP.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-        SelectP.setBounds(0, 82, 141, 580);
+        SelectP.setBounds(0, 82, 141, 771);
         add(SelectP);
         SelectP.setLayout(null);
 
@@ -44,8 +44,8 @@ public class SelectSpaceitem extends JPanel {
                 TableParse.setDriverT(table);
             }
         });
-        DriverBnt.setBounds(32, 377, 85, 59);
-        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        DriverBnt.setBounds(0, 442, 141, 89);
+        DriverBnt.setFont(new Font("宋体", Font.PLAIN, 40));
         SelectP.add(DriverBnt);
 
         JButton CarBnt = new JButton("汽车");
@@ -54,20 +54,20 @@ public class SelectSpaceitem extends JPanel {
                 TableParse.setCarT(table);
             }
         });
-        CarBnt.setBounds(32, 88, 85, 53);
-        CarBnt.setFont(new Font("宋体", Font.PLAIN, 24));
+        CarBnt.setBounds(0, 180, 141, 89);
+        CarBnt.setFont(new Font("宋体", Font.PLAIN, 40));
         SelectP.add(CarBnt);
 
         table = new JTable();
-        table.setFont(new Font("宋体", Font.PLAIN, 22));
+        table.setFont(new Font("宋体", Font.PLAIN, 35));
         table.setBounds(173, 99, 423, 445);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-        table.setRowHeight(30);
+        table.setRowHeight(60);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 20));
+        table.getTableHeader().setFont(new Font("宋体", Font.PLAIN, 35));
         JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setSize(490, 580);
+        scrollPane.setSize(1327, 771);
         scrollPane.setLocation(137, 82);
         scrollPane.setViewportView(table);
         add(scrollPane);

@@ -106,5 +106,6 @@ DialogGUI.Interface是图形界面的主要模块，其中包括了服务端、�
 
 如果插入更新错误也做出对应的提示
 
+修改了表格不能及时更新的错误
 
 打包  https://blog.csdn.net/weixin_38310965/article/details/80392767

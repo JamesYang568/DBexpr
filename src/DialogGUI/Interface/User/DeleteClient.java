@@ -23,29 +23,29 @@ public class DeleteClient extends JPanel {
 
         JLabel title = new JLabel("注销账户信息");
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("Dialog", Font.BOLD, 26));
-        title.setBounds(262, 13, 182, 47);
+        title.setFont(new Font("Dialog", Font.BOLD, 45));
+        title.setBounds(543, 13, 375, 122);
         add(title);
 
         JLabel Iid = new JLabel("输入客户号");
-        Iid.setFont(new Font("宋体", Font.PLAIN, 22));
-        Iid.setBounds(102, 101, 121, 35);
+        Iid.setFont(new Font("宋体", Font.PLAIN, 35));
+        Iid.setBounds(286, 176, 227, 64);
         add(Iid);
 
         idT = new JTextField();
-        idT.setFont(new Font("宋体", Font.PLAIN, 22));
-        idT.setBounds(337, 102, 157, 32);
+        idT.setFont(new Font("宋体", Font.PLAIN, 35));
+        idT.setBounds(655, 177, 459, 64);
         add(idT);
         idT.setColumns(10);
 
         JLabel lpassword = new JLabel("密码");
-        lpassword.setFont(new Font("宋体", Font.PLAIN, 22));
-        lpassword.setBounds(102, 202, 121, 35);
+        lpassword.setFont(new Font("宋体", Font.PLAIN, 35));
+        lpassword.setBounds(286, 381, 227, 64);
         add(lpassword);
 
         passwordT = new JPasswordField();
-        lpassword.setFont(new Font("宋体", Font.PLAIN, 22));
-        passwordT.setBounds(337, 202, 157, 32);
+        lpassword.setFont(new Font("宋体", Font.PLAIN, 35));
+        passwordT.setBounds(655, 389, 459, 64);
         add(passwordT);
 
         JButton SubBnt = new JButton("确定");
@@ -72,8 +72,8 @@ public class DeleteClient extends JPanel {
                 }
             }
         });
-        SubBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        SubBnt.setBounds(102, 478, 143, 41);
+        SubBnt.setFont(new Font("宋体", Font.PLAIN, 50));
+        SubBnt.setBounds(286, 662, 213, 122);
         add(SubBnt);
 
         JButton CanBnt = new JButton("清空");
@@ -82,8 +82,8 @@ public class DeleteClient extends JPanel {
                 reset();
             }
         });
-        CanBnt.setFont(new Font("宋体", Font.PLAIN, 22));
-        CanBnt.setBounds(383, 478, 143, 41);
+        CanBnt.setFont(new Font("宋体", Font.PLAIN, 50));
+        CanBnt.setBounds(939, 661, 213, 125);
         add(CanBnt);
     }
 
