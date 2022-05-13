@@ -3,6 +3,7 @@ A car rental system for Java homework using Swing.
 
 ### Brief Introduction
 （***Chinese Only***）
+
 整体程序分为四个模块：
 
 Entity模块包含了所有需要传递的信息对象，其中数据全部是根据语义值进行赋值。
